@@ -4,106 +4,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get Good with AI — Links & Resources</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #0a0a0b;
-    --surface: rgba(255,255,255,0.04);
-    --surface-hover: rgba(255,255,255,0.07);
+    --bg: #111111;
+    --surface: rgba(255,255,255,0.05);
+    --surface-hover: rgba(255,255,255,0.09);
     --border: rgba(255,255,255,0.08);
-    --text: #e8e6e3;
-    --text-dim: #8a8580;
-    --accent: #a78bfa;
-    --accent-dim: rgba(167, 139, 250, 0.1);
-    --accent-glow: rgba(167, 139, 250, 0.2);
-    --green: #4ade80;
-    --green-dim: rgba(74, 222, 128, 0.1);
-    --blue: #60a5fa;
-    --blue-dim: rgba(96, 165, 250, 0.1);
-    --orange: #fb923c;
-    --orange-dim: rgba(251, 146, 60, 0.1);
-    --pink: #f472b6;
-    --pink-dim: rgba(244, 114, 182, 0.1);
-    --cyan: #22d3ee;
-    --cyan-dim: rgba(34, 211, 238, 0.1);
+    --text: #f0eded;
+    --text-dim: #9a9590;
+    --purple: #b48efa;
+    --purple-glow: rgba(180, 142, 250, 0.25);
+    --green: #3ee87a;
+    --green-glow: rgba(62, 232, 122, 0.25);
+    --orange: #ff8a3a;
+    --orange-glow: rgba(255, 138, 58, 0.25);
+    --blue: #5eaaff;
+    --blue-glow: rgba(94, 170, 255, 0.25);
+    --pink: #ff5eaa;
+    --pink-glow: rgba(255, 94, 170, 0.25);
+    --yellow: #ffd53e;
   }
 
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Montserrat', -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.65;
+    line-height: 1.6;
     overflow-x: hidden;
   }
 
-  /* Animated gradient background */
-  .bg-glow {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(ellipse at 30% 20%, rgba(167, 139, 250, 0.07) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(96, 165, 250, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(251, 146, 60, 0.03) 0%, transparent 40%);
-    animation: drift 20s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-  }
-  @keyframes drift {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-5%, 3%); }
-  }
-
-  /* ASCII Globe canvas */
-  #globe-canvas {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 0;
-    font-family: 'JetBrains Mono', monospace;
-    opacity: 0.07;
-    color: var(--accent);
-    white-space: pre;
-    line-height: 1;
-    font-size: 10px;
-    text-align: center;
-    overflow: hidden;
-  }
-
-  /* Scan lines */
-  .scanlines {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: 2;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
-    );
-  }
-
-  /* Particle canvas */
-  #particles {
+  /* Dot grid background */
+  .dot-grid {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
+  }
+
+  /* Gradient mesh blobs */
+  .gradient-mesh {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .gradient-mesh .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    animation: blobFloat 20s ease-in-out infinite alternate;
+  }
+  .gradient-mesh .blob:nth-child(1) {
+    width: 600px; height: 600px;
+    background: var(--purple);
+    top: -10%; left: -10%;
+    animation-duration: 22s;
+  }
+  .gradient-mesh .blob:nth-child(2) {
+    width: 500px; height: 500px;
+    background: var(--orange);
+    top: 40%; right: -15%;
+    animation-duration: 18s;
+    animation-delay: -5s;
+  }
+  .gradient-mesh .blob:nth-child(3) {
+    width: 400px; height: 400px;
+    background: var(--pink);
+    bottom: -5%; left: 20%;
+    animation-duration: 25s;
+    animation-delay: -10s;
+  }
+  @keyframes blobFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.05); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+    100% { transform: translate(15px, -15px) scale(1.02); }
   }
 
   .container {
-    max-width: 680px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 3rem 1.5rem 6rem;
+    padding: 4rem 1.5rem 6rem;
     position: relative;
     z-index: 3;
   }
@@ -111,30 +101,29 @@
   /* Header */
   .header {
     text-align: center;
-    margin-bottom: 3.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
   }
   .header-badge {
     display: inline-block;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--accent);
-    background: var(--accent-dim);
-    padding: 0.35rem 0.9rem;
+    color: var(--orange);
+    background: rgba(255, 138, 58, 0.12);
+    padding: 0.4rem 1rem;
     border-radius: 100px;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(167, 139, 250, 0.15);
+    margin-bottom: 1.8rem;
+    border: 1px solid rgba(255, 138, 58, 0.2);
   }
   h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
-    background: linear-gradient(135deg, #e8e6e3 0%, #a78bfa 50%, #60a5fa 100%);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, var(--purple) 40%, var(--pink) 70%, var(--orange) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -142,15 +131,15 @@
   .header p {
     color: var(--text-dim);
     font-size: 0.95rem;
-    max-width: 480px;
+    max-width: 500px;
     margin: 0 auto;
+    font-weight: 400;
   }
-  /* Typing cursor */
   .typing-cursor {
     display: inline-block;
     width: 2px;
     height: 1em;
-    background: var(--accent);
+    background: var(--purple);
     margin-left: 2px;
     vertical-align: text-bottom;
     animation: blink 1s step-end infinite;
@@ -162,95 +151,125 @@
 
   /* Sections */
   .section {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3.5rem;
   }
-  .section-label {
+  .section-header {
+    position: relative;
+    margin-bottom: 1.4rem;
+    padding-left: 0.2rem;
+  }
+  .section-header h2 {
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    position: relative;
+    display: inline-block;
+  }
+  .section-header .accent-blob {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    filter: blur(18px);
+    opacity: 0.5;
+    top: 50%;
+    left: -12px;
+    transform: translateY(-50%);
+    z-index: -1;
+  }
+  .section-header .section-tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.65rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
+    opacity: 0.5;
+    margin-top: 0.25rem;
   }
 
   /* Cards */
   .card {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 1.15rem;
-    border-radius: 12px;
+    gap: 1.2rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: 18px;
     border: 1px solid var(--border);
     background: var(--surface);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.75rem;
     text-decoration: none;
     color: inherit;
-    transition: all 0.3s ease;
     cursor: pointer;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.8, 0.64, 1),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 800px;
+    will-change: transform;
+    /* stagger reveal - hidden by default */
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  .card.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: transform 0.6s cubic-bezier(0.34, 1.6, 0.64, 1),
+                opacity 0.5s ease,
+                box-shadow 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
   }
   .card:hover {
     background: var(--surface-hover);
-    border-color: rgba(255,255,255,0.12);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
+    transition: transform 0.4s cubic-bezier(0.34, 1.8, 0.64, 1),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
   }
+  .card:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: transform 0.15s ease;
+  }
+
   .card-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     margin-top: 2px;
   }
   .card-body { flex: 1; min-width: 0; }
   .card-title {
-    font-weight: 600;
-    font-size: 0.92rem;
-    margin-bottom: 0.2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
   .card-title-link {
-    font-weight: 600;
-    font-size: 0.92rem;
-    margin-bottom: 0.2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
     color: inherit;
   }
-  .card-title-link .arrow {
-    font-size: 0.75rem;
+  .arrow {
+    font-size: 0.8rem;
     color: var(--text-dim);
     opacity: 0;
-    transition: all 0.2s;
-    transform: translateX(-4px);
-  }
-  .card:hover .card-title-link .arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  .card-title .arrow {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    opacity: 0;
-    transition: all 0.2s;
-    transform: translateX(-4px);
+    transition: all 0.3s cubic-bezier(0.34, 1.8, 0.64, 1);
+    transform: translateX(-6px);
   }
   .card:hover .arrow {
     opacity: 1;
@@ -258,171 +277,211 @@
   }
   .card-desc {
     color: var(--text-dim);
-    font-size: 0.82rem;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    font-weight: 400;
   }
   .card-url {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     color: var(--text-dim);
-    opacity: 0.6;
-    margin-top: 0.3rem;
+    opacity: 0.5;
+    margin-top: 0.35rem;
   }
 
   /* Color variants */
-  .c-purple .card-icon { background: var(--accent-dim); color: var(--accent); }
-  .c-green .card-icon  { background: var(--green-dim); color: var(--green); }
-  .c-blue .card-icon   { background: var(--blue-dim); color: var(--blue); }
-  .c-orange .card-icon { background: var(--orange-dim); color: var(--orange); }
-  .c-pink .card-icon   { background: var(--pink-dim); color: var(--pink); }
-  .c-cyan .card-icon   { background: var(--cyan-dim); color: var(--cyan); }
+  .c-purple .card-icon { background: rgba(180, 142, 250, 0.15); color: var(--purple); }
+  .c-green .card-icon  { background: rgba(62, 232, 122, 0.15); color: var(--green); }
+  .c-blue .card-icon   { background: rgba(94, 170, 255, 0.15); color: var(--blue); }
+  .c-orange .card-icon { background: rgba(255, 138, 58, 0.15); color: var(--orange); }
+  .c-pink .card-icon   { background: rgba(255, 94, 170, 0.15); color: var(--pink); }
 
   /* Hover glow per color */
-  .c-purple:hover { border-color: rgba(167, 139, 250, 0.2); box-shadow: 0 4px 24px rgba(167, 139, 250, 0.08); }
-  .c-green:hover  { border-color: rgba(74, 222, 128, 0.2); box-shadow: 0 4px 24px rgba(74, 222, 128, 0.08); }
-  .c-blue:hover   { border-color: rgba(96, 165, 250, 0.2); box-shadow: 0 4px 24px rgba(96, 165, 250, 0.08); }
-  .c-orange:hover { border-color: rgba(251, 146, 60, 0.2); box-shadow: 0 4px 24px rgba(251, 146, 60, 0.08); }
-  .c-pink:hover   { border-color: rgba(244, 114, 182, 0.2); box-shadow: 0 4px 24px rgba(244, 114, 182, 0.08); }
+  .c-purple:hover { border-color: rgba(180, 142, 250, 0.3); box-shadow: 0 8px 40px rgba(180, 142, 250, 0.12), 0 0 0 1px rgba(180, 142, 250, 0.1); }
+  .c-green:hover  { border-color: rgba(62, 232, 122, 0.3); box-shadow: 0 8px 40px rgba(62, 232, 122, 0.12), 0 0 0 1px rgba(62, 232, 122, 0.1); }
+  .c-blue:hover   { border-color: rgba(94, 170, 255, 0.3); box-shadow: 0 8px 40px rgba(94, 170, 255, 0.12), 0 0 0 1px rgba(94, 170, 255, 0.1); }
+  .c-orange:hover { border-color: rgba(255, 138, 58, 0.3); box-shadow: 0 8px 40px rgba(255, 138, 58, 0.12), 0 0 0 1px rgba(255, 138, 58, 0.1); }
+  .c-pink:hover   { border-color: rgba(255, 94, 170, 0.3); box-shadow: 0 8px 40px rgba(255, 94, 170, 0.12), 0 0 0 1px rgba(255, 94, 170, 0.1); }
 
   /* Callout */
   .callout {
-    border: 1px solid rgba(167, 139, 250, 0.2);
-    background: rgba(167, 139, 250, 0.05);
-    border-radius: 12px;
-    padding: 1.25rem 1.4rem;
-    margin-bottom: 2.5rem;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 138, 58, 0.25);
+    background: rgba(255, 138, 58, 0.06);
+    border-radius: 18px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 0.75rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  .callout.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition: transform 0.6s cubic-bezier(0.34, 1.6, 0.64, 1),
+                opacity 0.5s ease;
   }
   .callout-title {
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 0.92rem;
     margin-bottom: 0.4rem;
-    color: var(--accent);
+    color: var(--orange);
   }
   .callout p {
     font-size: 0.85rem;
     color: var(--text-dim);
     line-height: 1.6;
+    font-weight: 400;
   }
   .callout code {
     font-family: 'JetBrains Mono', monospace;
-    background: rgba(255,255,255,0.06);
-    padding: 0.15rem 0.45rem;
-    border-radius: 5px;
+    background: rgba(255,255,255,0.07);
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
     font-size: 0.8rem;
     color: var(--text);
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
   /* Social row */
   .social-row {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.65rem;
     flex-wrap: wrap;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.75rem;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .social-row.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.6s cubic-bezier(0.34, 1.6, 0.64, 1),
+                opacity 0.5s ease;
   }
   .social-chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.55rem 1rem;
+    gap: 0.5rem;
+    padding: 0.65rem 1.1rem;
     border-radius: 100px;
     border: 1px solid var(--border);
     background: var(--surface);
     text-decoration: none;
     color: var(--text);
-    font-size: 0.82rem;
-    font-weight: 500;
-    transition: all 0.2s;
+    font-size: 0.85rem;
+    font-weight: 600;
     white-space: nowrap;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.8, 0.64, 1),
+                background 0.2s,
+                border-color 0.2s;
   }
   .social-chip:hover {
     background: var(--surface-hover);
-    border-color: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.18);
+    transform: scale(1.06);
+  }
+  .social-chip:active {
+    transform: scale(0.96);
+    transition: transform 0.1s;
   }
   .social-chip svg { width: 14px; height: 14px; fill: var(--text-dim); }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--border);
-    margin-top: 1rem;
-  }
-  .footer p {
-    color: var(--text-dim);
-    font-size: 0.82rem;
-  }
-  .footer a {
-    color: var(--accent);
-    text-decoration: none;
-  }
 
   /* Sub-links */
   .sub-links {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: 0.6rem;
   }
   .sub-link {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     color: var(--text-dim);
     text-decoration: none;
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    transition: all 0.15s;
+    padding: 0.3rem 0.65rem;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s cubic-bezier(0.34, 1.8, 0.64, 1);
   }
   .sub-link:hover {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.1);
     color: var(--text);
-    border-color: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.15);
+    transform: scale(1.05);
   }
 
-  /* Fade-in animation for cards */
-  .card, .callout, .social-row, .social-chip {
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 3rem;
+    margin-top: 1rem;
+    position: relative;
+  }
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .footer p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-weight: 400;
+  }
+  .footer a {
+    color: var(--purple);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .footer-sparkles {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    animation: sparkleFloat 3s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes sparkleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+  }
+
+  /* Section header reveal */
+  .section-header {
     opacity: 0;
-    transform: translateY(12px);
-    animation: fadeUp 0.5s ease forwards;
+    transform: translateY(20px);
   }
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
+  .section-header.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.34, 1.6, 0.64, 1),
+                opacity 0.4s ease;
   }
-  .section:nth-child(1) .card:nth-child(2) { animation-delay: 0.1s; }
-  .section:nth-child(1) .card:nth-child(3) { animation-delay: 0.15s; }
-  .section:nth-child(1) .card:nth-child(4) { animation-delay: 0.2s; }
-  .section:nth-child(2) .card:nth-child(2) { animation-delay: 0.25s; }
-  .section:nth-child(2) .card:nth-child(3) { animation-delay: 0.3s; }
-  .section:nth-child(2) .card:nth-child(4) { animation-delay: 0.35s; }
-  .section:nth-child(2) .card:nth-child(5) { animation-delay: 0.4s; }
-  .section:nth-child(3) .card:nth-child(2) { animation-delay: 0.45s; }
-  .section:nth-child(3) .card:nth-child(3) { animation-delay: 0.5s; }
-  .section:nth-child(3) .callout { animation-delay: 0.55s; }
-  .section:nth-child(4) .card:nth-child(2) { animation-delay: 0.6s; }
-  .section:nth-child(4) .card:nth-child(3) { animation-delay: 0.65s; }
-  .social-row { animation-delay: 0.7s; }
-  .section:nth-child(5) .card { animation-delay: 0.75s; }
 
   @media (max-width: 520px) {
-    .container { padding: 2rem 1rem 4rem; }
-    h1 { font-size: 1.7rem; }
+    .container { padding: 2.5rem 1rem 4rem; }
+    h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+    .card { padding: 1.1rem 1.2rem; gap: 1rem; border-radius: 14px; }
+    .card-icon { width: 42px; height: 42px; font-size: 1.2rem; border-radius: 12px; }
     .social-row { gap: 0.4rem; }
-    .social-chip { font-size: 0.78rem; padding: 0.45rem 0.8rem; }
-    #globe-canvas { font-size: 7px; }
+    .social-chip { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
+    .section-header h2 { font-size: 1.2rem; }
   }
 </style>
 </head>
 <body>
-<div class="bg-glow"></div>
-<div class="scanlines"></div>
-<canvas id="particles"></canvas>
-<pre id="globe-canvas"></pre>
+
+<!-- Background effects -->
+<div class="gradient-mesh">
+  <div class="blob"></div>
+  <div class="blob"></div>
+  <div class="blob"></div>
+</div>
+<canvas class="dot-grid" id="dotGrid"></canvas>
 
 <div class="container">
 
@@ -434,7 +493,11 @@
 
   <!-- Claude -->
   <div class="section">
-    <div class="section-label" style="color: var(--accent);">Claude</div>
+    <div class="section-header">
+      <div class="accent-blob" style="background: var(--purple);"></div>
+      <h2 style="color: var(--purple);">Claude</h2>
+      <div class="section-tag" style="color: var(--purple);">Your AI companion</div>
+    </div>
 
     <a href="https://claude.ai/download" target="_blank" class="card c-purple">
       <div class="card-icon">&#x2B07;</div>
@@ -467,7 +530,11 @@
 
   <!-- Essentials -->
   <div class="section">
-    <div class="section-label" style="color: var(--green);">Essential Tools</div>
+    <div class="section-header">
+      <div class="accent-blob" style="background: var(--green);"></div>
+      <h2 style="color: var(--green);">Essential Tools</h2>
+      <div class="section-tag" style="color: var(--green);">Daily drivers</div>
+    </div>
 
     <a href="https://wisprflow.ai" target="_blank" class="card c-green">
       <div class="card-icon">&#x1F399;</div>
@@ -504,7 +571,11 @@
 
   <!-- OpenClaw -->
   <div class="section">
-    <div class="section-label" style="color: var(--orange);">OpenClaw &mdash; Always-On AI Agent</div>
+    <div class="section-header">
+      <div class="accent-blob" style="background: var(--orange);"></div>
+      <h2 style="color: var(--orange);">OpenClaw</h2>
+      <div class="section-tag" style="color: var(--orange);">Always-on AI agent</div>
+    </div>
 
     <div class="card c-orange">
       <div class="card-icon">&#x1F916;</div>
@@ -535,7 +606,11 @@
 
   <!-- Reading -->
   <div class="section">
-    <div class="section-label" style="color: var(--blue);">Background Reading</div>
+    <div class="section-header">
+      <div class="accent-blob" style="background: var(--blue);"></div>
+      <h2 style="color: var(--blue);">Background Reading</h2>
+      <div class="section-tag" style="color: var(--blue);">Go deeper</div>
+    </div>
 
     <a href="https://x.com/timourxyz/status/2025583223107936561" target="_blank" class="card c-blue">
       <div class="card-icon">&#x1F4D6;</div>
@@ -545,7 +620,7 @@
       </div>
     </a>
 
-    <a href="https://www.notion.so/edgecity/308d45cdfc5980e4a8e4c2a377ff9277" target="_blank" class="card c-blue">
+    <a href="https://x.com/timourxyz/status/2023107002243707079" target="_blank" class="card c-blue">
       <div class="card-icon">&#x1F4D3;</div>
       <div class="card-body">
         <div class="card-title">Two Weeks of Agent-First Work <span class="arrow">&rarr;</span></div>
@@ -556,7 +631,11 @@
 
   <!-- Keep Up -->
   <div class="section">
-    <div class="section-label" style="color: var(--pink);">Keep Up</div>
+    <div class="section-header">
+      <div class="accent-blob" style="background: var(--pink);"></div>
+      <h2 style="color: var(--pink);">Keep Up</h2>
+      <div class="section-tag" style="color: var(--pink);">Stay in the loop</div>
+    </div>
 
     <div class="social-row">
       <a href="https://x.com/JoinEdgeCity" target="_blank" class="social-chip">
@@ -584,6 +663,7 @@
   </div>
 
   <div class="footer">
+    <div class="footer-sparkles">&#x2728;</div>
     <p>Put together by Timour &middot; <a href="https://x.com/timourxyz" target="_blank">@timourxyz</a></p>
     <p style="margin-top: 0.4rem; opacity: 0.5;">Questions? DM me on X or just ask Claude.</p>
   </div>
@@ -592,164 +672,79 @@
 
 <script>
 // ==========================================
-// 1. ROTATING ASCII GLOBE
+// 1. ANIMATED DOT GRID
 // ==========================================
 (function() {
-  const canvas = document.getElementById('globe-canvas');
-  const R = 18;          // sphere radius in character cells
-  const cols = R * 4;    // width of the text block
-  const rows = R * 2;    // height of the text block
-  const chars = '.:-=+*#%@';
-  let A = 0, B = 0;
-
-  function renderGlobe() {
-    const sinA = Math.sin(A), cosA = Math.cos(A);
-    const sinB = Math.sin(B), cosB = Math.cos(B);
-    const zbuf = new Float32Array(cols * rows);
-    const output = new Array(cols * rows).fill(' ');
-
-    // Render sphere points
-    for (let phi = 0; phi < 6.28; phi += 0.07) {
-      for (let theta = 0; theta < 3.14; theta += 0.04) {
-        const sinPhi = Math.sin(phi), cosPhi = Math.cos(phi);
-        const sinTheta = Math.sin(theta), cosTheta = Math.cos(theta);
-
-        // 3D point on unit sphere
-        const x = sinTheta * cosPhi;
-        const y = sinTheta * sinPhi;
-        const z = cosTheta;
-
-        // Rotate around Y axis (A) then X axis (B)
-        const rx = x * cosA + z * sinA;
-        const rz = -x * sinA + z * cosA;
-        const ry2 = y * cosB - rz * sinB;
-        const rz2 = y * sinB + rz * cosB;
-
-        // Project to 2D
-        const depth = rz2 + 3;
-        if (depth <= 0) continue;
-        const ooz = 1 / depth;
-        const xp = Math.floor(cols / 2 + R * 1.5 * rx * ooz);
-        const yp = Math.floor(rows / 2 + R * 0.75 * ry2 * ooz);
-
-        if (xp < 0 || xp >= cols || yp < 0 || yp >= rows) continue;
-
-        const idx = yp * cols + xp;
-        if (ooz > zbuf[idx]) {
-          zbuf[idx] = ooz;
-          // Lighting: dot product with light direction
-          const lum = rx * 0.3 + ry2 * -0.5 + rz2 * 0.7;
-          // Add latitude/longitude lines for globe feel
-          const latLine = Math.abs(Math.sin(theta * 6)) < 0.15 ? 2 : 0;
-          const lonLine = Math.abs(Math.sin(phi * 8)) < 0.12 ? 2 : 0;
-          const charIdx = Math.max(0, Math.min(chars.length - 1,
-            Math.floor((lum + 1) / 2 * (chars.length - 1)) + latLine + lonLine));
-          output[idx] = chars[charIdx];
-        }
-      }
-    }
-
-    // Build string
-    let result = '';
-    for (let j = 0; j < rows; j++) {
-      let line = '';
-      for (let i = 0; i < cols; i++) {
-        line += output[j * cols + i];
-      }
-      result += line + '\n';
-    }
-    canvas.textContent = result;
-
-    A += 0.008;
-    B += 0.003;
-    requestAnimationFrame(renderGlobe);
-  }
-
-  renderGlobe();
-})();
-
-
-// ==========================================
-// 2. FLOATING PARTICLES
-// ==========================================
-(function() {
-  const canvas = document.getElementById('particles');
+  const canvas = document.getElementById('dotGrid');
   const ctx = canvas.getContext('2d');
-  let w, h;
-  const particles = [];
-  const PARTICLE_COUNT = 40;
+  let w, h, cols, rows;
+  const spacing = 40;
+  let mouseX = -1000, mouseY = -1000;
+  let time = 0;
 
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
+    cols = Math.ceil(w / spacing) + 1;
+    rows = Math.ceil(h / spacing) + 1;
   }
   resize();
   window.addEventListener('resize', resize);
 
-  // Create particles
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.3 + 0.05
-    });
-  }
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
-  function drawParticles() {
+  function draw() {
     ctx.clearRect(0, 0, w, h);
+    time += 0.008;
 
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const x = i * spacing;
+        const y = j * spacing;
 
-      // Wrap around
-      if (p.x < 0) p.x = w;
-      if (p.x > w) p.x = 0;
-      if (p.y < 0) p.y = h;
-      if (p.y > h) p.y = 0;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(167, 139, 250, ${p.alpha})`;
-      ctx.fill();
-
-      // Draw connections
-      for (let j = i + 1; j < particles.length; j++) {
-        const p2 = particles[j];
-        const dx = p.x - p2.x;
-        const dy = p.y - p2.y;
+        // Distance from mouse
+        const dx = x - mouseX;
+        const dy = y - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(167, 139, 250, ${0.04 * (1 - dist / 150)})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
+
+        // Wave effect
+        const wave = Math.sin(time + i * 0.3 + j * 0.2) * 0.3 + 0.7;
+
+        // Mouse proximity glow
+        const proximity = Math.max(0, 1 - dist / 200);
+        const alpha = 0.08 * wave + proximity * 0.25;
+        const radius = 1.2 + proximity * 2;
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+
+        if (proximity > 0.1) {
+          ctx.fillStyle = `rgba(180, 142, 250, ${alpha})`;
+        } else {
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.5})`;
         }
+        ctx.fill();
       }
     }
 
-    requestAnimationFrame(drawParticles);
+    requestAnimationFrame(draw);
   }
 
-  drawParticles();
+  draw();
 })();
 
 
 // ==========================================
-// 3. TYPING EFFECT FOR SUBTITLE
+// 2. TYPING EFFECT FOR SUBTITLE
 // ==========================================
 (function() {
   const text = "Everything from the session, plus a few extras. Bookmark this page and come back when you're ready to go deeper.";
   const el = document.getElementById('subtitle');
   let i = 0;
 
-  // Add cursor
   const cursor = document.createElement('span');
   cursor.className = 'typing-cursor';
   el.appendChild(cursor);
@@ -760,8 +755,7 @@
       i++;
       setTimeout(type, 22 + Math.random() * 18);
     } else {
-      // Remove cursor after a pause
-      setTimeout(() => {
+      setTimeout(function() {
         cursor.style.animation = 'none';
         cursor.style.opacity = '0';
         cursor.style.transition = 'opacity 0.5s';
@@ -769,8 +763,65 @@
     }
   }
 
-  // Start typing after a short delay
   setTimeout(type, 600);
+})();
+
+
+// ==========================================
+// 3. STAGGERED REVEAL ON SCROLL
+// ==========================================
+(function() {
+  var revealTargets = document.querySelectorAll('.card, .callout, .social-row, .section-header');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        // Stagger siblings
+        var parent = entry.target.parentElement;
+        var siblings = parent.querySelectorAll('.card, .callout, .social-row');
+        var idx = Array.prototype.indexOf.call(siblings, entry.target);
+        var delay = idx >= 0 ? idx * 80 : 0;
+
+        setTimeout(function() {
+          entry.target.classList.add('revealed');
+        }, delay);
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealTargets.forEach(function(el) { observer.observe(el); });
+})();
+
+
+// ==========================================
+// 4. 3D TILT EFFECT ON CARDS
+// ==========================================
+(function() {
+  var cards = document.querySelectorAll('.card');
+
+  cards.forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+
+      var rotateX = (y - centerY) / centerY * -4;
+      var rotateY = (x - centerX) / centerX * 4;
+
+      card.style.transform = 'translateY(-4px) scale(1.02) perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+    });
+
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = '';
+    });
+  });
 })();
 </script>
 </body>
