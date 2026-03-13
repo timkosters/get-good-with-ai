@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Good with AI — Links & Resources</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --surface-hover: #f5f5f4;
+    --border: #e7e5e4;
+    --text: #1c1917;
+    --text-dim: #78716c;
+    --accent: #7c3aed;
+    --accent-dim: rgba(124, 58, 237, 0.08);
+    --accent-glow: rgba(124, 58, 237, 0.15);
+    --green: #16a34a;
+    --green-dim: rgba(22, 163, 74, 0.08);
+    --blue: #2563eb;
+    --blue-dim: rgba(37, 99, 235, 0.08);
+    --orange: #ea580c;
+    --orange-dim: rgba(234, 88, 12, 0.08);
+    --pink: #db2777;
+    --pink-dim: rgba(219, 39, 119, 0.08);
+    --cyan: #0891b2;
+    --cyan-dim: rgba(8, 145, 178, 0.08);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* Animated gradient background */
+  .bg-glow {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(124, 58, 237, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 50%);
+    animation: drift 20s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes drift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-5%, 3%); }
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #1c1917 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 2.5rem;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Cards */
+  .card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 0.6rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .card:hover {
+    background: var(--surface-hover);
+    border-color: rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transform: translateY(-1px);
+  }
+  .card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    margin-top: 2px;
+  }
+  .card-body { flex: 1; min-width: 0; }
+  .card-title {
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card-title .arrow {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    opacity: 0;
+    transition: all 0.2s;
+    transform: translateX(-4px);
+  }
+  .card:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .card-desc {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+  .card-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    opacity: 0.6;
+    margin-top: 0.3rem;
+  }
+
+  /* Color variants */
+  .c-purple .card-icon { background: var(--accent-dim); color: var(--accent); }
+  .c-green .card-icon  { background: var(--green-dim); color: var(--green); }
+  .c-blue .card-icon   { background: var(--blue-dim); color: var(--blue); }
+  .c-orange .card-icon { background: var(--orange-dim); color: var(--orange); }
+  .c-pink .card-icon   { background: var(--pink-dim); color: var(--pink); }
+  .c-cyan .card-icon   { background: var(--cyan-dim); color: var(--cyan); }
+
+  /* Callout */
+  .callout {
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    background: rgba(124, 58, 237, 0.04);
+    border-radius: 12px;
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 2.5rem;
+  }
+  .callout-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: var(--accent);
+  }
+  .callout p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .callout code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(0,0,0,0.05);
+    padding: 0.15rem 0.45rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    color: var(--text);
+  }
+
+  /* Social row */
+  .social-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+  }
+  .social-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .social-chip:hover {
+    background: var(--surface-hover);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .social-chip svg { width: 14px; height: 14px; fill: var(--text-dim); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+  .footer p {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+  }
+  .footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Sub-links */
+  .sub-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .sub-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: all 0.15s;
+  }
+  .sub-link:hover {
+    background: rgba(0,0,0,0.06);
+    color: var(--text);
+  }
+
+  @media (max-width: 520px) {
+    .container { padding: 2rem 1rem 4rem; }
+    h1 { font-size: 1.7rem; }
+    .social-row { gap: 0.4rem; }
+    .social-chip { font-size: 0.78rem; padding: 0.45rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge">Edge City &middot; March 2026</div>
+    <h1>Get Good with AI</h1>
+    <p>Everything from the session, plus a few extras. Bookmark this page and come back when you're ready to go deeper.</p>
+  </div>
+
+  <!-- Claude -->
+  <div class="section">
+    <div class="section-label" style="color: var(--accent);">Claude</div>
+
+    <a href="https://claude.ai/download" target="_blank" class="card c-purple">
+      <div class="card-icon">&#x2B07;</div>
+      <div class="card-body">
+        <div class="card-title">Claude Desktop <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">The app. Includes Claude Chat, Cowork (desktop AI assistant), and Claude Code (terminal tool for developers). Start here.</div>
+        <div class="card-url">claude.ai/download</div>
+      </div>
+    </a>
+
+    <a href="https://claude.com/product/cowork" target="_blank" class="card c-purple">
+      <div class="card-icon">&#x1F4BB;</div>
+      <div class="card-body">
+        <div class="card-title">Claude Cowork <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">The desktop assistant that reads and writes your files, creates documents, and handles multi-step tasks. Included with all paid plans.</div>
+        <div class="sub-links">
+          <a href="https://support.claude.com/en/articles/13345190-get-started-with-cowork" target="_blank" class="sub-link">Getting started guide</a>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" class="card c-purple">
+      <div class="card-icon">&gt;_</div>
+      <div class="card-body">
+        <div class="card-title">Claude Code <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Terminal-based AI for developers. Reads your codebase, writes features, runs tests. The engine behind vibe coding and AI agents.</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Essentials -->
+  <div class="section">
+    <div class="section-label" style="color: var(--green);">Essential Tools</div>
+
+    <a href="https://wisprflow.ai" target="_blank" class="card c-green">
+      <div class="card-icon">&#x1F399;</div>
+      <div class="card-body">
+        <div class="card-title">Wispr Flow <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Voice-to-text that works everywhere. Dictate emails, docs, chat messages. Once you start using this, you can't go back.</div>
+      </div>
+    </a>
+
+    <a href="https://www.monologue.to" target="_blank" class="card c-green">
+      <div class="card-icon">&#x1F50A;</div>
+      <div class="card-body">
+        <div class="card-title">Monologue <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Similar to Wispr Flow. Learns your writing style and adapts to match how you naturally communicate.</div>
+      </div>
+    </a>
+
+    <a href="https://www.granola.ai" target="_blank" class="card c-green">
+      <div class="card-icon">&#x1F4DD;</div>
+      <div class="card-body">
+        <div class="card-title">Granola <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">AI notepad for meetings. No bot joins your call. It listens locally and gives you structured notes with action items afterwards.</div>
+      </div>
+    </a>
+
+    <a href="https://cursor.com" target="_blank" class="card c-green">
+      <div class="card-icon">&#x2328;</div>
+      <div class="card-body">
+        <div class="card-title">Cursor <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">AI-first code editor. Great for vibe coding, building prototypes fast, and working with Claude on real projects.</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- OpenClaw -->
+  <div class="section">
+    <div class="section-label" style="color: var(--orange);">OpenClaw &mdash; Always-On AI Agent</div>
+
+    <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" class="card c-orange">
+      <div class="card-icon">&#x1F916;</div>
+      <div class="card-body">
+        <div class="card-title">OpenClaw <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Open-source system that turns Claude Code into a persistent agent you can message from Telegram, WhatsApp, or Discord. Your AI that's always on.</div>
+        <div class="sub-links">
+          <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" class="sub-link">Docs</a>
+          <a href="https://marketplace.digitalocean.com/apps/openclaw" target="_blank" class="sub-link">DigitalOcean 1-click deploy</a>
+          <a href="https://www.digitalocean.com/community/tutorials/how-to-run-openclaw" target="_blank" class="sub-link">Full setup guide</a>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://instaclaw.dev" target="_blank" class="card c-orange">
+      <div class="card-icon">&#x26A1;</div>
+      <div class="card-body">
+        <div class="card-title">Instaclaw <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Zero-config OpenClaw deployment. Go from nothing to a running agent in under two minutes.</div>
+      </div>
+    </a>
+
+    <div class="callout">
+      <div class="callout-title">Best way to get started with OpenClaw</div>
+      <p>Open Claude and say: <code>"Walk me through setting up OpenClaw step by step."</code> Claude knows the full process and will tailor instructions to your setup, skill level, and platform. Faster and better than any static tutorial.</p>
+    </div>
+  </div>
+
+  <!-- Reading -->
+  <div class="section">
+    <div class="section-label" style="color: var(--blue);">Background Reading</div>
+
+    <a href="https://x.com/timourxyz/status/2025583223107936561" target="_blank" class="card c-blue">
+      <div class="card-icon">&#x1F4D6;</div>
+      <div class="card-body">
+        <div class="card-title">How to Build Your Own AI Agent (Non-Technical) <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Full walkthrough of building a personal AI agent with Claude Code. Written for people who don't code.</div>
+      </div>
+    </a>
+
+    <a href="https://www.notion.so/edgecity/308d45cdfc5980e4a8e4c2a377ff9277" target="_blank" class="card c-blue">
+      <div class="card-icon">&#x1F4D3;</div>
+      <div class="card-body">
+        <div class="card-title">Two Weeks of Agent-First Work <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Honest lessons from going all-in on AI agents. The gains, the traps, and the guardrails you should set early.</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Keep Up -->
+  <div class="section">
+    <div class="section-label" style="color: var(--pink);">Keep Up</div>
+
+    <div class="social-row">
+      <a href="https://x.com/JoinEdgeCity" target="_blank" class="social-chip">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @JoinEdgeCity
+      </a>
+      <a href="https://x.com/VibeResidency" target="_blank" class="social-chip">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @VibeResidency
+      </a>
+      <a href="https://x.com/timourxyz" target="_blank" class="social-chip">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @timourxyz
+      </a>
+    </div>
+
+    <a href="https://www.edgecity.live" target="_blank" class="card c-pink">
+      <div class="card-icon">&#x2709;</div>
+      <div class="card-body">
+        <div class="card-title">Edge City Newsletter <span class="arrow">&rarr;</span></div>
+        <div class="card-desc">Sign up to stay in the loop on events, AI experiments, and community updates.</div>
+        <div class="card-url">edgecity.live</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>Put together by Timour &middot; <a href="https://x.com/timourxyz" target="_blank">@timourxyz</a></p>
+    <p style="margin-top: 0.4rem; opacity: 0.5;">Questions? DM me on X or just ask Claude.</p>
+  </div>
+
+</div>
+</body>
+</html>
