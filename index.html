@@ -164,6 +164,27 @@
     align-items: center;
     gap: 0.5rem;
   }
+  .card-title-link {
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card-title-link .arrow {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    opacity: 0;
+    transition: all 0.2s;
+    transform: translateX(-4px);
+  }
+  .card:hover .card-title-link .arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
   .card-title .arrow {
     font-size: 0.75rem;
     color: var(--text-dim);
@@ -322,16 +343,16 @@
       </div>
     </a>
 
-    <a href="https://claude.com/product/cowork" target="_blank" class="card c-purple">
+    <div class="card c-purple">
       <div class="card-icon">&#x1F4BB;</div>
       <div class="card-body">
-        <div class="card-title">Claude Cowork <span class="arrow">&rarr;</span></div>
+        <a href="https://claude.com/product/cowork" target="_blank" class="card-title-link">Claude Cowork <span class="arrow">&rarr;</span></a>
         <div class="card-desc">The desktop assistant that reads and writes your files, creates documents, and handles multi-step tasks. Included with all paid plans.</div>
         <div class="sub-links">
           <a href="https://support.claude.com/en/articles/13345190-get-started-with-cowork" target="_blank" class="sub-link">Getting started guide</a>
         </div>
       </div>
-    </a>
+    </div>
 
     <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" class="card c-purple">
       <div class="card-icon">&gt;_</div>
@@ -383,10 +404,10 @@
   <div class="section">
     <div class="section-label" style="color: var(--orange);">OpenClaw &mdash; Always-On AI Agent</div>
 
-    <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" class="card c-orange">
+    <div class="card c-orange">
       <div class="card-icon">&#x1F916;</div>
       <div class="card-body">
-        <div class="card-title">OpenClaw <span class="arrow">&rarr;</span></div>
+        <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" class="card-title-link">OpenClaw <span class="arrow">&rarr;</span></a>
         <div class="card-desc">Open-source system that turns Claude Code into a persistent agent you can message from Telegram, WhatsApp, or Discord. Your AI that's always on.</div>
         <div class="sub-links">
           <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" class="sub-link">Docs</a>
@@ -394,7 +415,7 @@
           <a href="https://www.digitalocean.com/community/tutorials/how-to-run-openclaw" target="_blank" class="sub-link">Full setup guide</a>
         </div>
       </div>
-    </a>
+    </div>
 
     <a href="https://instaclaw.dev" target="_blank" class="card c-orange">
       <div class="card-icon">&#x26A1;</div>
