@@ -10,25 +10,25 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #fafaf9;
-    --surface: #ffffff;
-    --surface-hover: #f5f5f4;
-    --border: #e7e5e4;
-    --text: #1c1917;
-    --text-dim: #78716c;
-    --accent: #7c3aed;
-    --accent-dim: rgba(124, 58, 237, 0.08);
-    --accent-glow: rgba(124, 58, 237, 0.15);
-    --green: #16a34a;
-    --green-dim: rgba(22, 163, 74, 0.08);
-    --blue: #2563eb;
-    --blue-dim: rgba(37, 99, 235, 0.08);
-    --orange: #ea580c;
-    --orange-dim: rgba(234, 88, 12, 0.08);
-    --pink: #db2777;
-    --pink-dim: rgba(219, 39, 119, 0.08);
-    --cyan: #0891b2;
-    --cyan-dim: rgba(8, 145, 178, 0.08);
+    --bg: #0a0a0b;
+    --surface: rgba(255,255,255,0.04);
+    --surface-hover: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e6e3;
+    --text-dim: #8a8580;
+    --accent: #a78bfa;
+    --accent-dim: rgba(167, 139, 250, 0.1);
+    --accent-glow: rgba(167, 139, 250, 0.2);
+    --green: #4ade80;
+    --green-dim: rgba(74, 222, 128, 0.1);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96, 165, 250, 0.1);
+    --orange: #fb923c;
+    --orange-dim: rgba(251, 146, 60, 0.1);
+    --pink: #f472b6;
+    --pink-dim: rgba(244, 114, 182, 0.1);
+    --cyan: #22d3ee;
+    --cyan-dim: rgba(34, 211, 238, 0.1);
   }
 
   body {
@@ -46,8 +46,9 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(ellipse at 30% 20%, rgba(124, 58, 237, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 50%);
+    background: radial-gradient(ellipse at 30% 20%, rgba(167, 139, 250, 0.07) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(96, 165, 250, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(251, 146, 60, 0.03) 0%, transparent 40%);
     animation: drift 20s ease-in-out infinite alternate;
     pointer-events: none;
     z-index: 0;
@@ -57,12 +58,54 @@
     100% { transform: translate(-5%, 3%); }
   }
 
+  /* ASCII Globe canvas */
+  #globe-canvas {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+    font-family: 'JetBrains Mono', monospace;
+    opacity: 0.07;
+    color: var(--accent);
+    white-space: pre;
+    line-height: 1;
+    font-size: 10px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* Scan lines */
+  .scanlines {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 2;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+  }
+
+  /* Particle canvas */
+  #particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .container {
     max-width: 680px;
     margin: 0 auto;
     padding: 3rem 1.5rem 6rem;
     position: relative;
-    z-index: 1;
+    z-index: 3;
   }
 
   /* Header */
@@ -83,6 +126,7 @@
     padding: 0.35rem 0.9rem;
     border-radius: 100px;
     margin-bottom: 1.5rem;
+    border: 1px solid rgba(167, 139, 250, 0.15);
   }
   h1 {
     font-size: 2.2rem;
@@ -90,7 +134,7 @@
     letter-spacing: -0.03em;
     line-height: 1.2;
     margin-bottom: 0.75rem;
-    background: linear-gradient(135deg, #1c1917 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #e8e6e3 0%, #a78bfa 50%, #60a5fa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -100,6 +144,20 @@
     font-size: 0.95rem;
     max-width: 480px;
     margin: 0 auto;
+  }
+  /* Typing cursor */
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
   /* Sections */
@@ -135,14 +193,16 @@
     margin-bottom: 0.6rem;
     text-decoration: none;
     color: inherit;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .card:hover {
     background: var(--surface-hover);
-    border-color: rgba(0,0,0,0.1);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    transform: translateY(-1px);
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+    transform: translateY(-2px);
   }
   .card-icon {
     width: 38px;
@@ -217,13 +277,22 @@
   .c-pink .card-icon   { background: var(--pink-dim); color: var(--pink); }
   .c-cyan .card-icon   { background: var(--cyan-dim); color: var(--cyan); }
 
+  /* Hover glow per color */
+  .c-purple:hover { border-color: rgba(167, 139, 250, 0.2); box-shadow: 0 4px 24px rgba(167, 139, 250, 0.08); }
+  .c-green:hover  { border-color: rgba(74, 222, 128, 0.2); box-shadow: 0 4px 24px rgba(74, 222, 128, 0.08); }
+  .c-blue:hover   { border-color: rgba(96, 165, 250, 0.2); box-shadow: 0 4px 24px rgba(96, 165, 250, 0.08); }
+  .c-orange:hover { border-color: rgba(251, 146, 60, 0.2); box-shadow: 0 4px 24px rgba(251, 146, 60, 0.08); }
+  .c-pink:hover   { border-color: rgba(244, 114, 182, 0.2); box-shadow: 0 4px 24px rgba(244, 114, 182, 0.08); }
+
   /* Callout */
   .callout {
-    border: 1px solid rgba(124, 58, 237, 0.2);
-    background: rgba(124, 58, 237, 0.04);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    background: rgba(167, 139, 250, 0.05);
     border-radius: 12px;
     padding: 1.25rem 1.4rem;
     margin-bottom: 2.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .callout-title {
     font-weight: 600;
@@ -238,11 +307,12 @@
   }
   .callout code {
     font-family: 'JetBrains Mono', monospace;
-    background: rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.06);
     padding: 0.15rem 0.45rem;
     border-radius: 5px;
     font-size: 0.8rem;
     color: var(--text);
+    border: 1px solid rgba(255,255,255,0.08);
   }
 
   /* Social row */
@@ -266,10 +336,12 @@
     font-weight: 500;
     transition: all 0.2s;
     white-space: nowrap;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .social-chip:hover {
     background: var(--surface-hover);
-    border-color: rgba(0,0,0,0.12);
+    border-color: rgba(255,255,255,0.15);
   }
   .social-chip svg { width: 14px; height: 14px; fill: var(--text-dim); }
 
@@ -303,31 +375,61 @@
     text-decoration: none;
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
-    background: rgba(0,0,0,0.03);
-    border: 1px solid rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
     transition: all 0.15s;
   }
   .sub-link:hover {
-    background: rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.08);
     color: var(--text);
+    border-color: rgba(255,255,255,0.12);
   }
+
+  /* Fade-in animation for cards */
+  .card, .callout, .social-row, .social-chip {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .section:nth-child(1) .card:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(1) .card:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(1) .card:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(2) .card:nth-child(2) { animation-delay: 0.25s; }
+  .section:nth-child(2) .card:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(2) .card:nth-child(4) { animation-delay: 0.35s; }
+  .section:nth-child(2) .card:nth-child(5) { animation-delay: 0.4s; }
+  .section:nth-child(3) .card:nth-child(2) { animation-delay: 0.45s; }
+  .section:nth-child(3) .card:nth-child(3) { animation-delay: 0.5s; }
+  .section:nth-child(3) .callout { animation-delay: 0.55s; }
+  .section:nth-child(4) .card:nth-child(2) { animation-delay: 0.6s; }
+  .section:nth-child(4) .card:nth-child(3) { animation-delay: 0.65s; }
+  .social-row { animation-delay: 0.7s; }
+  .section:nth-child(5) .card { animation-delay: 0.75s; }
 
   @media (max-width: 520px) {
     .container { padding: 2rem 1rem 4rem; }
     h1 { font-size: 1.7rem; }
     .social-row { gap: 0.4rem; }
     .social-chip { font-size: 0.78rem; padding: 0.45rem 0.8rem; }
+    #globe-canvas { font-size: 7px; }
   }
 </style>
 </head>
 <body>
 <div class="bg-glow"></div>
+<div class="scanlines"></div>
+<canvas id="particles"></canvas>
+<pre id="globe-canvas"></pre>
+
 <div class="container">
 
   <div class="header">
     <div class="header-badge">Edge City &middot; March 2026</div>
     <h1>Get Good with AI</h1>
-    <p>Everything from the session, plus a few extras. Bookmark this page and come back when you're ready to go deeper.</p>
+    <p id="subtitle"></p>
   </div>
 
   <!-- Claude -->
@@ -487,5 +589,189 @@
   </div>
 
 </div>
+
+<script>
+// ==========================================
+// 1. ROTATING ASCII GLOBE
+// ==========================================
+(function() {
+  const canvas = document.getElementById('globe-canvas');
+  const R = 18;          // sphere radius in character cells
+  const cols = R * 4;    // width of the text block
+  const rows = R * 2;    // height of the text block
+  const chars = '.:-=+*#%@';
+  let A = 0, B = 0;
+
+  function renderGlobe() {
+    const sinA = Math.sin(A), cosA = Math.cos(A);
+    const sinB = Math.sin(B), cosB = Math.cos(B);
+    const zbuf = new Float32Array(cols * rows);
+    const output = new Array(cols * rows).fill(' ');
+
+    // Render sphere points
+    for (let phi = 0; phi < 6.28; phi += 0.07) {
+      for (let theta = 0; theta < 3.14; theta += 0.04) {
+        const sinPhi = Math.sin(phi), cosPhi = Math.cos(phi);
+        const sinTheta = Math.sin(theta), cosTheta = Math.cos(theta);
+
+        // 3D point on unit sphere
+        const x = sinTheta * cosPhi;
+        const y = sinTheta * sinPhi;
+        const z = cosTheta;
+
+        // Rotate around Y axis (A) then X axis (B)
+        const rx = x * cosA + z * sinA;
+        const rz = -x * sinA + z * cosA;
+        const ry2 = y * cosB - rz * sinB;
+        const rz2 = y * sinB + rz * cosB;
+
+        // Project to 2D
+        const depth = rz2 + 3;
+        if (depth <= 0) continue;
+        const ooz = 1 / depth;
+        const xp = Math.floor(cols / 2 + R * 1.5 * rx * ooz);
+        const yp = Math.floor(rows / 2 + R * 0.75 * ry2 * ooz);
+
+        if (xp < 0 || xp >= cols || yp < 0 || yp >= rows) continue;
+
+        const idx = yp * cols + xp;
+        if (ooz > zbuf[idx]) {
+          zbuf[idx] = ooz;
+          // Lighting: dot product with light direction
+          const lum = rx * 0.3 + ry2 * -0.5 + rz2 * 0.7;
+          // Add latitude/longitude lines for globe feel
+          const latLine = Math.abs(Math.sin(theta * 6)) < 0.15 ? 2 : 0;
+          const lonLine = Math.abs(Math.sin(phi * 8)) < 0.12 ? 2 : 0;
+          const charIdx = Math.max(0, Math.min(chars.length - 1,
+            Math.floor((lum + 1) / 2 * (chars.length - 1)) + latLine + lonLine));
+          output[idx] = chars[charIdx];
+        }
+      }
+    }
+
+    // Build string
+    let result = '';
+    for (let j = 0; j < rows; j++) {
+      let line = '';
+      for (let i = 0; i < cols; i++) {
+        line += output[j * cols + i];
+      }
+      result += line + '\n';
+    }
+    canvas.textContent = result;
+
+    A += 0.008;
+    B += 0.003;
+    requestAnimationFrame(renderGlobe);
+  }
+
+  renderGlobe();
+})();
+
+
+// ==========================================
+// 2. FLOATING PARTICLES
+// ==========================================
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  const particles = [];
+  const PARTICLE_COUNT = 40;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Create particles
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.3 + 0.05
+    });
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Wrap around
+      if (p.x < 0) p.x = w;
+      if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h;
+      if (p.y > h) p.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(167, 139, 250, ${p.alpha})`;
+      ctx.fill();
+
+      // Draw connections
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(167, 139, 250, ${0.04 * (1 - dist / 150)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(drawParticles);
+  }
+
+  drawParticles();
+})();
+
+
+// ==========================================
+// 3. TYPING EFFECT FOR SUBTITLE
+// ==========================================
+(function() {
+  const text = "Everything from the session, plus a few extras. Bookmark this page and come back when you're ready to go deeper.";
+  const el = document.getElementById('subtitle');
+  let i = 0;
+
+  // Add cursor
+  const cursor = document.createElement('span');
+  cursor.className = 'typing-cursor';
+  el.appendChild(cursor);
+
+  function type() {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+      setTimeout(type, 22 + Math.random() * 18);
+    } else {
+      // Remove cursor after a pause
+      setTimeout(() => {
+        cursor.style.animation = 'none';
+        cursor.style.opacity = '0';
+        cursor.style.transition = 'opacity 0.5s';
+      }, 2000);
+    }
+  }
+
+  // Start typing after a short delay
+  setTimeout(type, 600);
+})();
+</script>
 </body>
 </html>
