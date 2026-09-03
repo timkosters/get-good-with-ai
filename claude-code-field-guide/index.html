@@ -1,0 +1,1365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Field Guide</title>
+<meta name="description" content="Learn Claude Code in one afternoon. An interactive field guide for Edge City India: the path, the loop, setup in the Desktop app or terminal, a safe first session, CLAUDE.md, and the habits that make it work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --bg:#ece6d9; --bg-2:#e2dac8; --bg-3:#d6ccb6; --card:#f5f0e6;
+  --ink:#0f1e23; --ink-2:#33454b; --ink-3:#6b7a80;
+  --line:rgba(15,30,35,.14); --line-2:rgba(15,30,35,.3);
+  --accent:#c8583d; --accent-soft:rgba(200,88,61,.12); --gold:#c9931f; --sea:#0f6b74;
+  --screen:#0a1519; --screen-2:#10232b; --screen-3:#17313b;
+  --screen-ink:#ece6d9; --screen-dim:rgba(236,230,217,.58); --screen-line:rgba(236,230,217,.12);
+  --prompt:#e8825f; --ok:#9fd39b; --bad:#e88d8d; --warn:#f0b545;
+  --key:#f7f3ea; --key-side:#c9c0ad; --key-ink:#0f1e23;
+  --shadow:0 30px 80px -30px rgba(15,30,35,.45);
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b161b; --bg-2:#10222a; --bg-3:#17313b; --card:#0f1f26;
+    --ink:#ece6d9; --ink-2:#bdb6a6; --ink-3:#8a877c;
+    --line:rgba(236,230,217,.13); --line-2:rgba(236,230,217,.28);
+    --accent:#e8825f; --accent-soft:rgba(232,130,95,.14); --gold:#f0b545; --sea:#5fbcbc;
+    --screen:#050d10; --screen-2:#0b1a20; --screen-3:#12272f;
+    --key:#17313b; --key-side:#050d10; --key-ink:#ece6d9;
+    --shadow:0 30px 80px -30px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b161b; --bg-2:#10222a; --bg-3:#17313b; --card:#0f1f26;
+  --ink:#ece6d9; --ink-2:#bdb6a6; --ink-3:#8a877c;
+  --line:rgba(236,230,217,.13); --line-2:rgba(236,230,217,.28);
+  --accent:#e8825f; --accent-soft:rgba(232,130,95,.14); --gold:#f0b545; --sea:#5fbcbc;
+  --screen:#050d10; --screen-2:#0b1a20; --screen-3:#12272f;
+  --key:#17313b; --key-side:#050d10; --key-ink:#ece6d9;
+  --shadow:0 30px 80px -30px rgba(0,0,0,.7);
+}
+
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--sans);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:0;text-wrap:balance;font-variation-settings:"wdth" 96}
+h2{font-size:clamp(34px,4.4vw,58px);margin-bottom:22px}
+h3{font-size:22px;line-height:1.2}
+h4{font-size:17px;line-height:1.25}
+p{margin:0 0 1.05em;max-width:64ch}
+.lead{font-size:clamp(19px,1.5vw,22px);color:var(--ink)}
+.muted{color:var(--ink-2)}
+.small{font-size:15px;color:var(--ink-3)}
+a{color:var(--sea);text-decoration-thickness:1px;text-underline-offset:3px}
+code,kbd,.mono{font-family:var(--mono)}
+code{font-size:.86em;background:var(--bg-2);padding:.12em .42em;border-radius:6px;color:var(--ink)}
+kbd{font-size:.78em;background:var(--key);color:var(--key-ink);border:1px solid var(--line-2);border-bottom-width:3px;border-radius:6px;padding:.1em .5em;white-space:nowrap}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 22px;display:flex;align-items:center;gap:12px;font-weight:500}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent);flex:0 0 auto}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.narrow{max-width:760px}
+.sec{padding:clamp(84px,11vw,150px) 0;border-top:1px solid var(--line);position:relative}
+.two{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px);align-items:start}
+.two.keys-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);margin-top:36px}
+@media(max-width:900px){.two,.two.keys-grid{grid-template-columns:1fr}}
+.two>*,.hero-grid>*,.sim-grid>*,.builder>*,.loop-grid>*,.trio>*,.habits>*,.weeks>*{min-width:0}
+.sticky-col{position:sticky;top:96px}
+@media(max-width:900px){.sticky-col{position:static}}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;z-index:100}
+.skip:focus{left:8px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* reveal: only when JS is on, from a visible resting state */
+html.js .rv{opacity:.001;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+html.js .rv.in{opacity:1;transform:none}
+html.js .rv.d1{transition-delay:.08s}html.js .rv.d2{transition-delay:.16s}html.js .rv.d3{transition-delay:.24s}
+@media (prefers-reduced-motion: reduce){html.js .rv{opacity:1;transform:none;transition:none}*{animation-duration:.001s!important;animation-iteration-count:1!important}}
+
+/* ---------- progress + rail ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));z-index:90;transition:width .1s linear}
+.rail{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:2px}
+.rail a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:5px 8px;border-radius:8px;transition:color .2s,background .2s}
+.rail a::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.45;flex:0 0 auto;transition:transform .2s,opacity .2s}
+.rail a .n{width:20px;opacity:.75}
+.rail a .l{opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;white-space:nowrap}
+.rail:hover a .l,.rail a.on .l{opacity:1;transform:none}
+.rail a.on{color:var(--accent)}
+.rail a.on::before{opacity:1;transform:scale(1.4)}
+.rail a:hover{background:var(--bg-2)}
+@media(max-width:1399px){.rail{display:none}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.005em;padding:13px 20px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .2s,background .2s,border-color .2s,color .2s;line-height:1}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{transform:translateY(-1px);background:#d4694e}
+.btn.ghost{border-color:rgba(236,230,217,.32);color:var(--screen-ink);background:transparent}
+.btn.ghost:hover{border-color:rgba(236,230,217,.7);transform:translateY(-1px)}
+.btn.line{border-color:var(--line-2);color:var(--ink);background:transparent}
+.btn.line:hover{border-color:var(--ink);transform:translateY(-1px)}
+.btn .arrow{font-family:var(--mono);font-weight:400}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:min(92vh,980px);background:var(--screen);color:var(--screen-ink);overflow:hidden;display:grid;align-items:end;isolation:isolate}
+.hero .horizon{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(55% 40% at 66% 40%,rgba(232,130,95,.32),transparent 62%),
+  radial-gradient(70% 50% at 30% 55%,rgba(15,107,116,.35),transparent 60%),
+  linear-gradient(180deg,#0a1519 0%,#0f2129 48%,#0a1519 100%)}
+.hero canvas.ocean{position:absolute;inset:0;z-index:1;width:100%;height:100%;display:block}
+.hero .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(10,21,25,.78) 0%,rgba(10,21,25,.5) 38%,rgba(10,21,25,.05) 62%),linear-gradient(180deg,rgba(10,21,25,.25) 0%,rgba(10,21,25,0) 35%,rgba(10,21,25,.55) 100%);pointer-events:none}
+@media(max-width:900px){.hero .veil{background:linear-gradient(180deg,rgba(10,21,25,.35) 0%,rgba(10,21,25,.62) 55%,rgba(10,21,25,.85) 100%)}}
+.hero .lead,.hero h1{text-shadow:0 2px 24px rgba(10,21,25,.6)}
+.hero-inner{position:relative;z-index:3;width:100%;padding:clamp(96px,13vh,150px) 0 clamp(40px,6vh,72px);opacity:calc(1 - var(--sp,0)*1.35);transform:translateY(calc(var(--sp,0)*-40px))}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,4vw,56px);align-items:end}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+.hero .eyebrow{color:var(--gold)}
+.hero .eyebrow::before{background:var(--gold)}
+.hero h1{font-size:clamp(46px,7.2vw,110px);font-weight:500;letter-spacing:-.035em;line-height:.95;font-variation-settings:"wdth" 92,"opsz" 96;max-width:13ch;margin-bottom:26px}
+.hero h1 .accent{color:var(--prompt)}
+.hero .lead{color:rgba(236,230,217,.82);max-width:50ch;margin-bottom:30px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.hero .made{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:rgba(236,230,217,.55)}
+.hero .made b{color:rgba(236,230,217,.85);font-weight:500}
+.scrollcue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(236,230,217,.55);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:calc(1 - var(--sp,0)*3)}
+.scrollcue .ln{width:1px;height:30px;background:linear-gradient(var(--gold),transparent);animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+@media(max-width:900px){.scrollcue{display:none}}
+
+/* ---------- terminal ---------- */
+.term{background:var(--screen);color:var(--screen-ink);border:1px solid var(--screen-line);border-radius:12px;box-shadow:var(--shadow);font-family:var(--mono);font-size:13.5px;line-height:1.6;overflow:hidden}
+.hero .term{background:rgba(5,13,16,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.tbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--screen-line);background:rgba(255,255,255,.03);font-size:11.5px;color:var(--screen-dim);letter-spacing:.06em}
+.tbar .dots{display:flex;gap:6px}
+.tbar .dots i{width:10px;height:10px;border-radius:50%;background:#2c3c43;display:block}
+.tbar .title{margin-left:6px}
+.tbar .mode{margin-left:auto;color:var(--screen-dim)}
+.tbar .mode.plan{color:var(--warn)}
+.tbody{padding:16px 18px 14px;min-height:200px;white-space:pre-wrap;overflow-wrap:anywhere}
+.tl{margin:0 0 7px}
+.tl.u{color:var(--screen-ink)}
+.tl.u::before{content:"> ";color:var(--prompt);font-weight:700}
+.tl.a::before{content:"● ";color:var(--prompt)}
+.tl.tool{color:var(--screen-dim)}
+.tl.tool b{color:var(--screen-ink);font-weight:500}
+.tl.tool::before{content:"● ";color:var(--ok)}
+.tl.res{color:var(--screen-dim);padding-left:18px}
+.tl.res::before{content:"⎿  "}
+.tl.sys{color:var(--warn);font-size:12.5px}
+.tl.out{color:var(--screen-dim);padding-left:18px;font-size:12.5px}
+.tl.out .ok{color:var(--ok)}.tl.out .bad{color:var(--bad)}
+.tl.done{border-top:1px solid var(--screen-line);padding-top:10px;margin-top:12px;color:var(--gold)}
+.tl.done::before{content:"✓ ";color:var(--gold)}
+.cursor{display:inline-block;width:.6em;height:1.05em;background:var(--prompt);vertical-align:-2px;animation:blink 1s steps(1) infinite;margin-left:1px}
+@keyframes blink{50%{opacity:0}}
+.think{color:var(--screen-dim)}
+.think::before{content:"✻ ";color:var(--prompt)}
+.perm{border:1px solid rgba(240,181,69,.55);background:rgba(240,181,69,.06);border-radius:8px;padding:12px 14px;margin:10px 0 12px}
+.perm .q{color:var(--screen-ink);margin-bottom:4px}
+.perm .q b{color:var(--warn);font-weight:500}
+.perm .path{color:var(--screen-dim);margin-bottom:10px;font-size:12.5px}
+.perm .opts{display:flex;flex-direction:column;gap:6px}
+.perm button{text-align:left;background:transparent;border:1px solid var(--screen-line);color:var(--screen-ink);font-family:var(--mono);font-size:12.5px;padding:8px 10px;border-radius:6px;cursor:pointer;transition:border-color .15s,background .15s}
+.perm button:hover,.perm button:focus-visible{border-color:var(--warn);background:rgba(240,181,69,.1)}
+.perm button .k{color:var(--screen-dim);margin-right:8px}
+.perm.answered .opts button{opacity:.45;cursor:default}
+.perm.answered .opts button.chosen{opacity:1;border-color:var(--warn)}
+
+/* ---------- section: what ---------- */
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:34px;perspective:1200px}
+@media(max-width:860px){.trio{grid-template-columns:1fr}}
+.pane{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px 22px;transform-style:preserve-3d;transition:transform .35s ease,border-color .35s,box-shadow .35s;will-change:transform}
+.pane:hover{border-color:var(--line-2);box-shadow:var(--shadow)}
+.pane .tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:14px}
+.pane.hi{background:var(--screen);color:var(--screen-ink);border-color:var(--screen-3)}
+.pane.hi .tag{color:var(--prompt)}
+.pane.hi p{color:rgba(236,230,217,.78)}
+.pane h3{margin-bottom:10px}
+.pane p{font-size:16.5px;margin:0}
+.take{margin-top:34px;border-left:3px solid var(--accent);padding:6px 0 6px 22px;max-width:70ch}
+.take p{margin:0;font-size:17.5px}
+.take p i{color:var(--ink-2)}
+
+/* ---------- section: loop ---------- */
+.pin-section{padding:0;border-top:1px solid var(--line)}
+.pin-track{height:calc(5 * 78vh);position:relative}
+.pin{position:sticky;top:0;height:100vh;display:grid;align-items:center;overflow:hidden}
+.pin .wrap{width:100%}
+.loop-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center}
+.loop-head{margin-bottom:26px}
+.loop-head h2{margin-bottom:10px}
+.loop-head p{margin:0;color:var(--ink-2)}
+.stage-copy{position:relative;min-height:360px}
+.stage{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .45s,transform .45s;pointer-events:none}
+.stage.on{opacity:1;transform:none;pointer-events:auto}
+.stage .num{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--accent);margin-bottom:10px}
+.stage h3{font-size:clamp(26px,2.6vw,36px);margin-bottom:14px}
+.stage .roles{display:grid;gap:10px}
+.stage .role{display:grid;grid-template-columns:96px 1fr;gap:12px;font-size:16.5px;padding:10px 0;border-top:1px solid var(--line)}
+.stage .role b{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding-top:5px}
+.stage .role.you b{color:var(--gold)}
+.stage .role span{color:var(--ink-2)}
+.loop-dots{display:flex;gap:8px;margin-top:22px}
+.loop-dots i{width:34px;height:3px;background:var(--line-2);border-radius:2px;transition:background .3s}
+.loop-dots i.on{background:var(--accent)}
+.ring-stage{position:relative;height:min(58vh,520px);perspective:1400px;perspective-origin:50% 45%}
+.ring{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-7deg) rotateY(var(--rot,0deg));transition:transform .18s linear}
+.rcard{position:absolute;left:50%;top:50%;width:min(300px,64vw);height:190px;margin:-95px 0 0 calc(min(300px,64vw) / -2);border-radius:14px;background:var(--screen);color:var(--screen-ink);border:1px solid var(--screen-3);padding:20px 22px;transform:rotateY(calc(var(--i) * 72deg)) translateZ(var(--rz,330px));backface-visibility:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.8);font-family:var(--mono);display:flex;flex-direction:column;justify-content:space-between;transition:opacity .25s}
+.rcard .rk{font-size:11px;letter-spacing:.2em;color:var(--prompt);text-transform:uppercase}
+.rcard .rt{font-family:var(--sans);font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1}
+.rcard .rl{font-size:12px;color:var(--screen-dim);line-height:1.5}
+.rcard .rl b{color:var(--screen-ink);font-weight:500}
+.rcard.front{border-color:var(--prompt);box-shadow:0 0 0 1px rgba(232,130,95,.3),0 40px 90px -40px rgba(232,130,95,.55)}
+.ring-floor{position:absolute;left:50%;top:50%;width:min(520px,80vw);height:min(520px,80vw);margin:calc(min(520px,80vw) / -2) 0 0 calc(min(520px,80vw) / -2);border-radius:50%;border:1px dashed var(--line-2);transform:rotateX(78deg) translateZ(-120px);pointer-events:none}
+.stages-list{display:none}
+@media(max-width:900px){
+  .pin-track{height:auto}
+  .pin{position:static;height:auto;padding:84px 0 20px}
+  .loop-grid{grid-template-columns:1fr}
+  .ring-stage,.stage-copy,.loop-dots{display:none}
+  .stages-list{display:grid;gap:14px}
+  .stages-list .sl{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 20px}
+  .stages-list .sl .num{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--accent)}
+  .stages-list .sl h3{font-size:22px;margin:6px 0 10px}
+  .stages-list .sl p{font-size:16px;margin:0 0 8px;color:var(--ink-2)}
+  .stages-list .sl p b{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-right:6px}
+}
+
+/* ---------- section: setup ---------- */
+.steps{counter-reset:s;list-style:none;padding:0;margin:26px 0 0}
+.steps li{counter-increment:s;position:relative;padding:20px 0 20px 56px;border-top:1px solid var(--line)}
+.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:22px;font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.08em}
+.steps li h4{margin-bottom:6px}
+.steps li p{font-size:16.5px;color:var(--ink-2);margin:0 0 8px}
+.steps li p:last-child{margin:0}
+.cmd{display:flex;align-items:center;gap:10px;background:var(--screen);color:var(--screen-ink);border-radius:9px;padding:10px 12px 10px 14px;font-family:var(--mono);font-size:13px;margin:10px 0 6px;overflow:hidden}
+.cmd code{background:none;color:var(--screen-ink);padding:0;font-size:13px;white-space:nowrap;overflow-x:auto;flex:1;min-width:0;scrollbar-width:thin}
+.cmd code::before{content:"$ ";color:var(--prompt)}
+.cmd .copy{flex:0 0 auto;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--screen-dim);border:1px solid var(--screen-line);border-radius:6px;padding:5px 9px;cursor:pointer;transition:color .15s,border-color .15s}
+.cmd .copy:hover{color:var(--screen-ink);border-color:var(--screen-dim)}
+.cmd .copy.ok{color:var(--ok);border-color:var(--ok)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 4px}
+.tabs button{font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:7px 12px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink-2);cursor:pointer}
+.tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabpanel{display:none}.tabpanel.on{display:block}
+details.help{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:0 22px;margin-top:8px}
+details.help summary{cursor:pointer;padding:18px 0;font-family:var(--sans);font-weight:600;font-size:17px;list-style:none;display:flex;align-items:center;gap:12px}
+details.help summary::-webkit-details-marker{display:none}
+details.help summary::before{content:"+";font-family:var(--mono);color:var(--accent);width:18px;display:inline-block;text-align:center}
+details.help[open] summary::before{content:"–"}
+details.help .body{padding:0 0 20px;border-top:1px solid var(--line)}
+details.help .body p,details.help .body li{font-size:16px;color:var(--ink-2)}
+details.help .body ul{padding-left:20px;margin:12px 0}
+details.help .body li{margin-bottom:8px}
+.where{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
+@media(max-width:900px){.where{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.where{grid-template-columns:1fr}}
+.where div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card)}
+.where b{font-family:var(--sans);font-weight:600;font-size:15px;display:block;margin-bottom:4px}
+.where span{font-size:14.5px;color:var(--ink-2);line-height:1.45;display:block}
+.notecard{background:var(--accent-soft);border-radius:12px;padding:16px 20px;margin-top:22px;font-size:16px}
+.notecard p{margin:0;color:var(--ink)}
+
+/* ---------- setup: doors ---------- */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 22px}
+@media(max-width:560px){.doors{grid-template-columns:1fr}}
+.door{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;cursor:pointer;font-family:var(--serif);color:var(--ink);transition:border-color .2s,box-shadow .2s,transform .2s;display:grid;gap:6px;align-content:start}
+.door:hover{border-color:var(--line-2);transform:translateY(-1px)}
+.door.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent),var(--shadow)}
+.door .dk{font-family:var(--sans);font-weight:600;font-size:19px;display:flex;align-items:center;gap:10px}
+.door .dk::before{content:"";width:10px;height:10px;border-radius:50%;border:2px solid var(--line-2);flex:0 0 auto;transition:background .2s,border-color .2s}
+.door.on .dk::before{background:var(--accent);border-color:var(--accent)}
+.door .dd{font-size:15px;color:var(--ink-2);line-height:1.5}
+.door-panel{display:none}.door-panel.on{display:block}
+.door-panel .steps{margin-top:0}
+
+/* ---------- section: path (trail map) ---------- */
+.trail{margin:34px 0 0}
+.trail-scroll{overflow-x:auto;scrollbar-width:thin}
+.trail svg{display:block;width:100%;height:auto}
+@media(max-width:700px){.trail svg{min-width:880px}}
+.trail figcaption{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink-3);margin-top:14px;min-height:1.6em}
+.trail .swipe{display:none;margin:6px 0 0}
+@media(max-width:700px){.trail .swipe{display:block}}
+.trail .tr-sun{fill:var(--gold);opacity:.9}
+.trail .tr-wave{fill:none;stroke:var(--sea);stroke-width:1.5;opacity:.5}
+.trail .tr-horizon{stroke:var(--line-2)}
+.trail .tr-dune.d1{fill:var(--bg-3);opacity:.6}.trail .tr-dune.d2{fill:var(--bg-2)}.trail .tr-dune.d3{fill:var(--card)}
+.trail .tr-palm{stroke:var(--ink);opacity:.5}
+.trail .tr-base{fill:none;stroke:var(--line-2);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
+.trail .tr-line{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .15s linear}
+.trail .tr-walker .dot{fill:var(--accent)}.trail .tr-walker .halo{fill:var(--accent);opacity:.22}
+.trail .divider{stroke:var(--line-2);stroke-dasharray:2 6}
+.trail .region{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;fill:var(--ink-3)}
+.trail .stop{cursor:pointer;outline:none}
+.trail .stop .ring{fill:var(--card);stroke:var(--accent);stroke-width:2;transition:fill .3s,r .2s}
+.trail .stop.goa .ring{stroke:var(--gold)}
+.trail .stop .num{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--accent);text-anchor:middle;dominant-baseline:central}
+.trail .stop.goa .num{fill:var(--gold)}
+.trail .stop.on .ring{fill:var(--accent)}.trail .stop.goa.on .ring{fill:var(--gold)}
+.trail .stop.on .num{fill:#fff}.trail .stop.goa.on .num{fill:#0f1e23}
+.trail .stop .lbl{font-family:var(--sans);font-weight:600;font-size:14px;fill:var(--ink-3);transition:fill .3s}
+.trail .stop.on .lbl,.trail .stop:hover .lbl,.trail .stop:focus-visible .lbl{fill:var(--ink)}
+.trail .stop:hover .ring,.trail .stop:focus-visible .ring{stroke-width:3}
+.trail .stop .lead{stroke:var(--line-2)}
+
+/* ---------- section: session simulator ---------- */
+.sim-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 16px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--sans);font-weight:600;font-size:14px;padding:9px 14px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.chip .lvl{font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-right:8px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.on .lvl{color:var(--gold)}
+.sim-controls{margin-left:auto;display:flex;gap:8px}
+.sim-controls button{font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:8px 12px;border-radius:8px;border:1px solid var(--line-2);background:transparent;color:var(--ink-2);cursor:pointer}
+.sim-controls button:hover{border-color:var(--ink);color:var(--ink)}
+.sim-controls button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sim-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:22px;align-items:start}
+@media(max-width:900px){.sim-grid{grid-template-columns:1fr}}
+.sim .term .tbody{min-height:420px;max-height:560px;overflow-y:auto;scrollbar-width:thin}
+.sim .term .tin{border-top:1px solid var(--screen-line);padding:10px 18px;color:var(--screen-dim);font-size:12.5px;display:flex;gap:8px}
+.sim .term .tin::before{content:">";color:var(--prompt)}
+.notes{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.notes li{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);opacity:.55;transition:opacity .35s,border-color .35s,transform .35s}
+.notes li.on{opacity:1;border-color:var(--accent);transform:translateX(4px)}
+.notes li.done{opacity:.85;border-color:var(--line-2);transform:none}
+.notes li b{font-family:var(--sans);font-weight:600;font-size:16px;display:block;margin-bottom:3px}
+.notes li span{font-size:15px;color:var(--ink-2);line-height:1.45;display:block}
+.notes li .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:6px}
+.notes li.on .k{color:var(--accent)}
+.sim-foot{margin-top:14px;font-size:14.5px;color:var(--ink-3)}
+
+/* ---------- section: CLAUDE.md builder ---------- */
+.builder{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:22px;margin-top:30px;align-items:start}
+@media(max-width:900px){.builder{grid-template-columns:1fr}}
+.form{display:grid;gap:14px}
+.field label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:6px}
+.field input,.field textarea{width:100%;font-family:var(--serif);font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;line-height:1.45}
+.field textarea{min-height:76px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:transparent}
+.checks{display:grid;gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;color:var(--ink-2);cursor:pointer}
+.checks input{margin-top:5px;accent-color:var(--accent)}
+.filecard{background:var(--screen);color:var(--screen-ink);border:1px solid var(--screen-line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;position:sticky;top:96px}
+@media(max-width:900px){.filecard{position:static}}
+.filecard .tbar .title{color:var(--screen-ink)}
+.filecard pre{margin:0;padding:18px 20px;font-family:var(--mono);font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--screen-ink);min-height:300px}
+.filecard pre .h{color:var(--prompt)}
+.filecard pre .c{color:var(--screen-dim)}
+.filecard .fbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--screen-line);font-family:var(--mono);font-size:11.5px;color:var(--screen-dim)}
+.filecard .fbar button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--prompt);color:#fff;border:0;border-radius:6px;padding:7px 12px;cursor:pointer}
+.filecard .fbar button.ok{background:var(--ok);color:#0a1519}
+.memmap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:26px}
+@media(max-width:700px){.memmap{grid-template-columns:1fr}}
+.memmap div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);font-size:15px;color:var(--ink-2);line-height:1.5}
+.memmap code{display:block;margin-bottom:6px;color:var(--accent);background:none;padding:0;font-size:12.5px}
+
+/* ---------- section: habits ---------- */
+.habits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
+@media(max-width:1000px){.habits{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.habits{grid-template-columns:1fr}}
+.flip{perspective:1200px;min-height:260px;cursor:pointer;outline:none}
+.flip .inner{position:relative;width:100%;height:100%;min-height:260px;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.flip.flipped .inner,.flip:focus-visible .inner{transform:rotateY(180deg)}
+@media(hover:hover){.flip:hover .inner{transform:rotateY(180deg)}}
+.face{position:absolute;inset:0;border-radius:var(--r);padding:22px 20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;justify-content:space-between}
+.face.front{background:var(--card);border:1px solid var(--line)}
+.face.front .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.face.front h3{font-size:22px;margin:10px 0 8px}
+.face.front p{font-size:15.5px;color:var(--ink-2);margin:0}
+.face.front .hint{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:14px}
+.face.back{background:var(--screen);color:var(--screen-ink);border:1px solid var(--screen-3);transform:rotateY(180deg);font-family:var(--mono);font-size:12.5px;line-height:1.55;justify-content:flex-start;gap:12px}
+.face.back .lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--screen-dim);display:block;margin-bottom:4px}
+.face.back .bad{color:var(--bad)}
+.face.back .good{color:var(--ok)}
+.rules{margin-top:40px;background:var(--screen);color:var(--screen-ink);border-radius:var(--r);padding:30px clamp(22px,3vw,36px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:24px;align-items:start}
+@media(max-width:900px){.rules{grid-template-columns:1fr}}
+.rules h3{font-size:26px;color:var(--screen-ink);margin-bottom:8px}
+.rules .eyebrow{color:var(--warn);margin-bottom:12px}
+.rules .eyebrow::before{background:var(--warn)}
+.rules p{color:rgba(236,230,217,.75);font-size:16px;margin:0}
+.rules ol{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+.rules li{display:grid;grid-template-columns:28px 1fr;gap:12px;font-size:16px;color:rgba(236,230,217,.85)}
+.rules li b{color:var(--screen-ink);font-family:var(--sans);font-weight:600;display:block;margin-bottom:2px}
+.rules li .n{font-family:var(--mono);color:var(--warn);font-size:12px;padding-top:5px}
+.rules code{background:rgba(236,230,217,.1);color:var(--screen-ink)}
+
+/* ---------- section: weeks ---------- */
+.terrace{perspective:1600px;margin-top:34px}
+.weeks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;transform-style:preserve-3d}
+@media(max-width:900px){.weeks{grid-template-columns:1fr}}
+.week{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s,border-color .5s}
+.week:hover{transform:translateZ(30px) translateY(-4px);box-shadow:var(--shadow);border-color:var(--line-2)}
+.week .wk{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.week .wk b{color:var(--accent);font-weight:500}
+.week h3{font-size:24px;margin-bottom:6px}
+.week .sub{font-family:var(--sans);color:var(--ink-2);font-size:16px;margin-bottom:18px}
+.week dl{margin:0;display:grid;gap:12px}
+.week dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.week dd{margin:0;font-size:15.5px;color:var(--ink-2);line-height:1.5}
+.week dd code{font-size:12.5px}
+.week.w2{transform:translateZ(0)}
+.rhythm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+@media(max-width:700px){.rhythm{grid-template-columns:1fr}}
+.rhythm div{border-top:2px solid var(--line-2);padding:14px 0 0;font-size:15.5px;color:var(--ink-2)}
+.rhythm b{font-family:var(--sans);color:var(--ink);display:block;margin-bottom:4px}
+
+/* ---------- checklist + footer ---------- */
+.checklist{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:2px}
+.checklist li label{display:grid;grid-template-columns:26px 1fr;gap:14px;align-items:start;padding:16px 8px;border-top:1px solid var(--line);cursor:pointer;font-size:17.5px;transition:background .2s}
+.checklist li label:hover{background:var(--card)}
+.checklist input{width:20px;height:20px;margin-top:4px;accent-color:var(--accent)}
+.checklist li span{display:block}
+.checklist li small{display:block;font-size:14.5px;color:var(--ink-3);margin-top:2px}
+.checklist li.done label{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--accent)}
+.checklist li.done small{text-decoration:none}
+.check-status{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink-3);margin-top:14px}
+footer{border-top:1px solid var(--line);padding:56px 0 48px;background:var(--bg-2)}
+footer .fgrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px;align-items:start}
+@media(max-width:800px){footer .fgrid{grid-template-columns:1fr}}
+footer p{font-size:15.5px;color:var(--ink-2)}
+footer .made{font-family:var(--sans);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:10px}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:15px}
+footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<a class="skip" href="#what">Skip to content</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<nav class="rail" id="rail" aria-label="Sections">
+  <a href="#top"><span class="n">00</span><span class="l">Start</span></a>
+  <a href="#path"><span class="n">01</span><span class="l">The path</span></a>
+  <a href="#what"><span class="n">02</span><span class="l">What it is</span></a>
+  <a href="#loop"><span class="n">03</span><span class="l">The loop</span></a>
+  <a href="#setup"><span class="n">04</span><span class="l">Set up</span></a>
+  <a href="#session"><span class="n">05</span><span class="l">First session</span></a>
+  <a href="#claudemd"><span class="n">06</span><span class="l">CLAUDE.md</span></a>
+  <a href="#habits"><span class="n">07</span><span class="l">Habits</span></a>
+  <a href="#weeks"><span class="n">08</span><span class="l">Three weeks</span></a>
+  <a href="#checklist"><span class="n">09</span><span class="l">Checklist</span></a>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="horizon" aria-hidden="true"></div>
+  <canvas class="ocean" id="ocean" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Edge City India · Goa · Oct 11 to Nov 1, 2026</p>
+        <h1>Learn Claude Code in <span class="accent">one afternoon.</span></h1>
+        <p class="lead">Claude Code is a programmer that works inside your own files, in a terminal or in the Claude Desktop app. You describe what you want in plain English; it reads, plans, edits, runs, and checks, asking before anything risky. This guide takes you from a blank screen to a working tool, and it stays useful for the three weeks after.</p>
+        <div class="cta">
+          <a class="btn primary" href="#setup">Start at zero <span class="arrow">→</span></a>
+          <a class="btn ghost" href="#session">Watch a session first</a>
+        </div>
+        <p class="made">Built in Claude Code by <b>Claude Fable 5.1</b> for Edge City</p>
+      </div>
+      <div class="term" aria-label="Example Claude Code session">
+        <div class="tbar"><span class="dots"><i></i><i></i><i></i></span><span class="title">claude · ~/village-notes</span><span class="mode" id="hero-mode">⏸ manual mode on</span></div>
+        <div class="tbody" id="hero-term" aria-live="off"></div>
+      </div>
+    </div>
+  </div>
+  <div class="scrollcue" aria-hidden="true"><span>scroll</span><span class="ln"></span></div>
+</header>
+
+<main>
+<!-- ===================== 01 PATH ===================== -->
+<section class="sec" id="path">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">01 · The path</p>
+      <h2>The route, start to finish.</h2>
+      <p class="lead">Nine stops. The first five are on this page and take an afternoon; the last four are the three weeks in Goa. Every stop ends with something you can show someone, so you always know where you are.</p>
+    </div>
+    <figure class="trail rv" id="trail">
+      <div class="trail-scroll">
+        <svg id="trail-svg" viewBox="0 0 1200 530" role="img" aria-label="The learner's path: nine stops from seeing the loop to the showcase. The first five are on this page; the last four are the three weeks in Goa.">
+          <defs>
+            <linearGradient id="tr-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a8a92" stop-opacity=".3"/><stop offset="1" stop-color="#1a8a92" stop-opacity=".03"/></linearGradient>
+            <g id="tr-palm" fill="none" stroke-width="3" stroke-linecap="round">
+              <path d="M0 0c4-40 10-80 6-120"/>
+              <path d="M6-120c-30-10-60 0-82 22"/><path d="M6-120c30-10 60 0 82 22"/>
+              <path d="M6-120c-22-24-46-34-72-30"/><path d="M6-120c22-24 46-34 72-30"/>
+              <path d="M6-120c-4-30 2-50 12-62"/>
+            </g>
+          </defs>
+          <rect x="0" y="0" width="1200" height="172" fill="url(#tr-sea)"/>
+          <circle cx="1010" cy="96" r="30" class="tr-sun"/>
+          <path class="tr-wave" d="M0 118q30-7 60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0"/>
+          <path class="tr-wave" opacity=".55" d="M-30 146q30-6 60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0"/>
+          <line x1="0" y1="172" x2="1200" y2="172" class="tr-horizon"/>
+          <path class="tr-dune d1" d="M0 250C200 200 380 305 600 258S980 190 1200 250V530H0Z"/>
+          <path class="tr-dune d2" d="M0 340C220 280 420 390 640 330S1000 270 1200 340V530H0Z"/>
+          <path class="tr-dune d3" d="M0 440C260 390 520 480 760 430S1050 390 1200 440V530H0Z"/>
+          <use href="#tr-palm" class="tr-palm" transform="translate(140 262) scale(1.05)"/>
+          <use href="#tr-palm" class="tr-palm" transform="translate(575 214) scale(.7)"/>
+          <g id="trail-regions"></g>
+          <path id="trail-base" class="tr-base" d="M70 470C170 470 190 330 300 330S420 440 520 400S640 250 760 270S880 400 980 350S1080 210 1130 205"/>
+          <path id="trail-line" class="tr-line" d="M70 470C170 470 190 330 300 330S420 440 520 400S640 250 760 270S880 400 980 350S1080 210 1130 205"/>
+          <g id="trail-stops"></g>
+          <g id="trail-walker" class="tr-walker"><circle r="16" class="halo"/><circle r="7" class="dot"/></g>
+        </svg>
+      </div>
+      <figcaption id="trail-cap">Nine stops. Tap one to jump to it.</figcaption>
+      <p class="swipe small">Swipe the map sideways to follow the path.</p>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== 02 WHAT ===================== -->
+<section class="sec" id="what">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">02 · What it is</p>
+      <h2>A colleague who can touch the files.</h2>
+      <p class="lead">A chatbot answers. Claude Code acts. Point it at a folder and it can read every file in it, write new ones, run commands, search the web, and use git, all from a conversation. You stay in charge of what it may touch.</p>
+    </div>
+    <div class="trio">
+      <div class="pane rv" data-tilt><span class="tag">Chat</span><h3>You carry the context.</h3><p>You paste things in and copy answers out. Wonderful for thinking, slow for doing, and it forgets your project the moment you close the tab.</p></div>
+      <div class="pane hi rv d1" data-tilt><span class="tag">Claude Code</span><h3>It works where the files are.</h3><p>It reads the project, makes the change, runs the tests, and shows you the diff. Ambiguity gets a question, risk gets a permission prompt.</p></div>
+      <div class="pane rv d2" data-tilt><span class="tag">You</span><h3>Judgment stays with you.</h3><p>You set the goal, answer its questions, approve anything that touches the outside world, and read what changed before it ships.</p></div>
+    </div>
+    <div class="take rv">
+      <p>Our view, after building Edge's own internal tools this way: the skill that matters most is describing an outcome clearly and checking the result, which most people who have never written code already have. <i>Syntax was the wall. The wall is gone; the judgment still counts.</i></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 LOOP ===================== -->
+<section class="pin-section" id="loop">
+  <div class="pin-track" id="loop-track">
+    <div class="pin">
+      <div class="wrap">
+        <div class="loop-grid">
+          <div>
+            <div class="loop-head">
+              <p class="eyebrow">03 · The loop</p>
+              <h2>Every session is the same loop.</h2>
+              <p>Once you can see it, everything else is detail. Scroll to walk through it.</p>
+            </div>
+            <div class="stage-copy" id="stage-copy">
+              <div class="stage on" data-i="0">
+                <div class="num">STAGE 1 OF 5</div>
+                <h3>Understand. It reads before it writes.</h3>
+                <div class="roles">
+                  <div class="role"><b>Claude Code</b><span>Searches the folder, reads the files that matter, checks CLAUDE.md for your rules, and asks when the request is ambiguous.</span></div>
+                  <div class="role you"><b>You</b><span>Point it at things with <code>@file</code>, paste a screenshot, and say what done looks like.</span></div>
+                </div>
+              </div>
+              <div class="stage" data-i="1">
+                <div class="num">STAGE 2 OF 5</div>
+                <h3>Plan. It proposes; you decide.</h3>
+                <div class="roles">
+                  <div class="role"><b>Claude Code</b><span>Lays out the steps for anything bigger than a one-liner. In plan mode it can read and propose but change nothing.</span></div>
+                  <div class="role you"><b>You</b><span>Approve, trim, or redirect. Thirty seconds here saves ten minutes later.</span></div>
+                </div>
+              </div>
+              <div class="stage" data-i="2">
+                <div class="num">STAGE 3 OF 5</div>
+                <h3>Act. It edits and runs, with permission.</h3>
+                <div class="roles">
+                  <div class="role"><b>Claude Code</b><span>Makes precise edits and runs commands: tests, git, scripts. The first time a tool needs your permission, it stops and asks.</span></div>
+                  <div class="role you"><b>You</b><span>Yes, yes and don't ask again, or no with a note on what to do instead. In the Desktop app the same moment is a diff you accept or reject.</span></div>
+                </div>
+              </div>
+              <div class="stage" data-i="3">
+                <div class="num">STAGE 4 OF 5</div>
+                <h3>Check. It tests its own work.</h3>
+                <div class="roles">
+                  <div class="role"><b>Claude Code</b><span>Runs the tests, loads the page, reads the output, and fixes what failed before coming back to you.</span></div>
+                  <div class="role you"><b>You</b><span>Give it something to check against. A test command or a screenshot beats "make sure it works."</span></div>
+                </div>
+              </div>
+              <div class="stage" data-i="4">
+                <div class="num">STAGE 5 OF 5</div>
+                <h3>Report. It shows you what changed.</h3>
+                <div class="roles">
+                  <div class="role"><b>Claude Code</b><span>Summarizes the change, lists the files it touched, and says what it could not do.</span></div>
+                  <div class="role you"><b>You</b><span>Read the diff, commit, ask the next question. The loop starts again.</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="loop-dots" id="loop-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="ring-stage" aria-hidden="true">
+            <div class="ring-floor"></div>
+            <div class="ring" id="ring">
+              <div class="rcard front" style="--i:0"><span class="rk">01 · understand</span><span class="rt">Read</span><span class="rl"><b>Glob</b> notes/**  ·  <b>Read</b> 14 files  ·  <b>Grep</b> "deadline"</span></div>
+              <div class="rcard" style="--i:1"><span class="rk">02 · plan</span><span class="rt">Propose</span><span class="rl">1. structure  2. content  3. style<br><b>⏸ plan mode</b>: read-only until you approve</span></div>
+              <div class="rcard" style="--i:2"><span class="rk">03 · act</span><span class="rt">Edit · Run</span><span class="rl"><b>Edit</b> site/index.html  +42 −3<br><b>Bash</b> npm test  → needs your yes</span></div>
+              <div class="rcard" style="--i:3"><span class="rk">04 · check</span><span class="rt">Verify</span><span class="rl"><b>Bash</b> npm test  ·  2 passed<br><b>Read</b> screenshot.png  ·  looks right</span></div>
+              <div class="rcard" style="--i:4"><span class="rk">05 · report</span><span class="rt">Summarize</span><span class="rl">3 files changed · what I could not do · <b>your turn</b></span></div>
+            </div>
+          </div>
+        </div>
+        <!-- stacked fallback for small screens -->
+        <div class="stages-list">
+          <div class="sl"><span class="num">STAGE 1 OF 5</span><h3>Understand. It reads before it writes.</h3><p><b>Claude Code</b>Searches the folder, reads the files that matter, checks CLAUDE.md, asks when the request is ambiguous.</p><p><b>You</b>Point it at things with <code>@file</code>, paste a screenshot, say what done looks like.</p></div>
+          <div class="sl"><span class="num">STAGE 2 OF 5</span><h3>Plan. It proposes; you decide.</h3><p><b>Claude Code</b>Lays out the steps for anything bigger than a one-liner. In plan mode it changes nothing.</p><p><b>You</b>Approve, trim, or redirect.</p></div>
+          <div class="sl"><span class="num">STAGE 3 OF 5</span><h3>Act. It edits and runs, with permission.</h3><p><b>Claude Code</b>Precise edits and commands. The first time a tool needs permission, it asks.</p><p><b>You</b>Yes, yes and don't ask again, or no with a note.</p></div>
+          <div class="sl"><span class="num">STAGE 4 OF 5</span><h3>Check. It tests its own work.</h3><p><b>Claude Code</b>Runs tests, reads output, fixes what failed.</p><p><b>You</b>Give it something to check against.</p></div>
+          <div class="sl"><span class="num">STAGE 5 OF 5</span><h3>Report. It shows you what changed.</h3><p><b>Claude Code</b>Summary, files touched, what it could not do.</p><p><b>You</b>Read the diff, commit, ask the next question.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 SETUP ===================== -->
+<section class="sec" id="setup">
+  <div class="wrap two">
+    <div class="sticky-col">
+      <p class="eyebrow">04 · Set up</p>
+      <h2>Ten minutes to a working setup.</h2>
+      <p class="lead">Two doors into the same tool. The Desktop app runs Claude Code with buttons, panes, and a visual diff for every change; the terminal is where it started and runs anywhere. Pick one, and switch later if you like. Everything else on this page applies to both.</p>
+      <div class="where rv" style="grid-template-columns:1fr 1fr">
+        <div><b>Also: VS Code and JetBrains</b><span>Inline diffs inside the editor you already use.</span></div>
+        <div><b>Also: claude.ai/code</b><span>Cloud sessions from a browser or your phone, on a copy of your repository.</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="doors" role="tablist" aria-label="Choose how you run Claude Code">
+        <button class="door on" data-door="desktop" role="tab" aria-selected="true"><span class="dk">Desktop app</span><span class="dd">Take this door if you have never used a terminal, or you want to see every change as a diff before you accept it.</span></button>
+        <button class="door" data-door="terminal" role="tab" aria-selected="false"><span class="dk">Terminal</span><span class="dd">Take this door if you already live in a terminal, or you want scripts, automation, and the full toolkit.</span></button>
+      </div>
+
+      <div class="door-panel on" data-door="desktop">
+        <ol class="steps">
+          <li class="rv">
+            <h4>Install the app and sign in</h4>
+            <p>Download Claude for macOS or Windows at <a href="https://claude.com/download" rel="noopener">claude.com/download</a>, open it, and sign in with your Claude account. Claude Code needs a paid plan: Pro, Max, Team, or Enterprise. On Windows, install <a href="https://git-scm.com/downloads/win" rel="noopener">Git for Windows</a> first, then restart the app.</p>
+          </li>
+          <li class="rv">
+            <h4>Open the Code tab</h4>
+            <p>The app has three tabs: Chat, Cowork, and Code. Code is where Claude Code lives. Every conversation there is a session with its own project folder and its own changes, and you can run several side by side.</p>
+          </li>
+          <li class="rv">
+            <h4>Point it at a folder</h4>
+            <p>In the prompt area, choose <em>Local</em> as the environment and select your project folder. No project yet? Make an empty folder called <em>village-notes</em> and pick that. Claude only sees the folder you choose, which is exactly what you want.</p>
+          </li>
+          <li class="rv">
+            <h4>Set the mode</h4>
+            <p>The mode selector sits next to the send button. Start in <em>Manual</em>: Claude asks before it edits a file or runs a command, and shows you the diff. Switch to <em>Plan</em> for anything big, then back to execute. Some accounts also show <em>Auto</em>, where a second model reviews actions so you approve less often.</p>
+          </li>
+          <li class="rv">
+            <h4>Type your first ask, then give it a memory</h4>
+            <p>Plain English, then Enter. Drag in a screenshot, or type <code>@</code> to mention a file. When Claude changes something, a <code>+12 -1</code> indicator appears; click it to open the diff and comment on any line. After the first task, type <code>/init</code> in the prompt box and Claude drafts a <code>CLAUDE.md</code> for the folder. Section 06 shows what to put in it.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="door-panel" data-door="terminal">
+        <ol class="steps">
+        <li class="rv">
+          <h4>Open a terminal</h4>
+          <p>Mac: press <kbd>⌘</kbd> <kbd>Space</kbd>, type <em>Terminal</em>, press Enter. Windows: open <em>PowerShell</em> from the Start menu. A dark window with a blinking cursor is the whole thing.</p>
+        </li>
+        <li class="rv">
+          <h4>Install Claude Code</h4>
+          <p>Paste one line and press Enter. It installs itself and keeps itself updated.</p>
+          <div class="tabs" role="tablist" aria-label="Operating system">
+            <button class="on" data-tab="mac" role="tab">macOS / Linux</button>
+            <button data-tab="win" role="tab">Windows</button>
+            <button data-tab="brew" role="tab">Homebrew</button>
+          </div>
+          <div class="tabpanel on" data-panel="mac"><div class="cmd"><code>curl -fsSL https://claude.ai/install.sh | bash</code><button class="copy" data-copy="curl -fsSL https://claude.ai/install.sh | bash">Copy</button></div></div>
+          <div class="tabpanel" data-panel="win"><div class="cmd"><code>irm https://claude.ai/install.ps1 | iex</code><button class="copy" data-copy="irm https://claude.ai/install.ps1 | iex">Copy</button></div></div>
+          <div class="tabpanel" data-panel="brew"><div class="cmd"><code>brew install --cask claude-code</code><button class="copy" data-copy="brew install --cask claude-code">Copy</button></div></div>
+          <p>Check it worked: type <code>claude --version</code>. A version number means you are done.</p>
+        </li>
+        <li class="rv">
+          <h4>Go to a project folder</h4>
+          <p>Claude Code works inside whatever folder you start it from. Type <code>cd</code>, a space, then drag the folder from Finder or Explorer onto the terminal window and press Enter. No folder yet? Make one:</p>
+          <div class="cmd"><code>mkdir village-notes &amp;&amp; cd village-notes</code><button class="copy" data-copy="mkdir village-notes && cd village-notes">Copy</button></div>
+        </li>
+        <li class="rv">
+          <h4>Start it and log in</h4>
+          <div class="cmd"><code>claude</code><button class="copy" data-copy="claude">Copy</button></div>
+          <p>The first run opens your browser to log in. Claude Pro, Max, Team, and Enterprise all include Claude Code; a Claude Console account with API credits works too. The free plan does not include it.</p>
+        </li>
+        <li class="rv">
+          <h4>Give it a memory</h4>
+          <div class="cmd"><code>/init</code><button class="copy" data-copy="/init">Copy</button></div>
+          <p>Claude reads the folder and drafts a <code>CLAUDE.md</code>, the file where it keeps notes about your project. It is a plain text file you can edit any time. Section 06 shows what to put in it.</p>
+        </li>
+      </ol>
+
+        <details class="help rv">
+        <summary>Never opened a terminal? Two ideas and you are fine.</summary>
+        <div class="body">
+          <p><strong>Idea one: the terminal is a text box that talks to your computer.</strong> You type a command, press Enter, and it does the thing or prints a message. Looking around cannot break anything.</p>
+          <ul>
+            <li><code>pwd</code> prints where you are (the folder the terminal is "standing in").</li>
+            <li><code>ls</code> lists what is in that folder.</li>
+            <li><code>cd Documents</code> steps into a folder; <code>cd ..</code> steps back out.</li>
+          </ul>
+          <p><strong>Idea two: Claude Code only sees the folder you start it in.</strong> That is a feature. Keep one folder per project, start <code>claude</code> inside it, and it works on that project alone.</p>
+          <p>Stuck on any command, in Claude Code or out of it? Ask Claude what it does. Explaining is one of the things it is best at.</p>
+        </div>
+      </details>
+      </div>
+
+      <div class="notecard rv">
+        <p><strong>What it costs.</strong> Subscriptions include Claude Code within each plan's usage limits, and <code>/usage</code> shows how much of the window you have used. Console accounts pay per token and see a running dollar figure in the same place. Long sessions cost more than short ones, which is one reason for the <code>/clear</code> habit in section 07.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 SESSION ===================== -->
+<section class="sec sim" id="session">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">05 · First session</p>
+      <h2>Run a first session, safely, right here.</h2>
+      <p class="lead">Pick a track and press run. The session below is scripted to show what a real one feels like, including the moment Claude stops to ask. When it does, you decide. Then go and do the same thing for real in your own terminal.</p>
+    </div>
+    <div class="sim-head">
+      <div class="chips" role="tablist" aria-label="Scenario">
+        <button class="chip on" data-scn="beginner" role="tab"><span class="lvl">Beginner</span>Notes to website</button>
+        <button class="chip" data-scn="intermediate" role="tab"><span class="lvl">Intermediate</span>A feature, with tests</button>
+        <button class="chip" data-scn="advanced" role="tab"><span class="lvl">Advanced</span>Plan, delegate, open a PR</button>
+      </div>
+      <div class="sim-controls">
+        <button class="primary" id="sim-run">Run session</button>
+        <button id="sim-skip">Skip ahead</button>
+      </div>
+    </div>
+    <div class="sim-grid">
+      <div class="term" aria-live="polite">
+        <div class="tbar"><span class="dots"><i></i><i></i><i></i></span><span class="title" id="sim-title">claude · ~/farm-notes</span><span class="mode" id="sim-mode">⏸ manual mode on</span></div>
+        <div class="tbody" id="sim-body"></div>
+        <div class="tin" id="sim-in"><span>Press run to start</span></div>
+      </div>
+      <div>
+        <ol class="notes" id="notes">
+          <li data-n="reads"><span class="k">What just happened</span><b>It reads before it writes.</b><span>Claude searched and read the relevant files first. Nothing changed yet.</span></li>
+          <li data-n="plans"><span class="k">What just happened</span><b>It proposes; you decide.</b><span>A short plan, in plain language, before any edit. You can say yes, change it, or stop.</span></li>
+          <li data-n="asks"><span class="k">What just happened</span><b>It asks before touching your files or running commands.</b><span>The permission prompt is the safety rail. "Don't ask again" saves a rule for that exact action; "No" lets you redirect.</span></li>
+          <li data-n="checks"><span class="k">What just happened</span><b>It checks its own work.</b><span>Tests, output, a second read. When something fails, it fixes and re-runs before reporting.</span></li>
+          <li data-n="reports"><span class="k">What just happened</span><b>It reports; you review.</b><span>Files touched, what changed, what it could not do. Read the diff. Then ask the next question.</span></li>
+        </ol>
+        <p class="sim-foot">Illustrative session. The transcript is scripted; real output will differ, and the loop will look the same. In the Desktop app this same session runs in the Code tab: edits arrive as a diff you accept or reject, and the mode selector next to the send button replaces Shift+Tab.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 CLAUDE.md ===================== -->
+<section class="sec" id="claudemd">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">06 · Teach it your world</p>
+      <h2>Claude knows everything about software and nothing about your project.</h2>
+      <p class="lead"><code>CLAUDE.md</code> fixes that. It is a plain text file in your folder that Claude reads at the start of every session: what the project is, how you like to work, what to never do. Fill in the blanks, copy the file, and watch every answer get better.</p>
+    </div>
+    <div class="builder">
+      <form class="form" id="cmd-form" autocomplete="off">
+        <div class="field"><label for="f-name">Project name</label><input id="f-name" value="Village Notes" placeholder="What you call it"></div>
+        <div class="field"><label for="f-what">What it is, in one line</label><input id="f-what" value="A one-page site that turns my research notes into something I can share." placeholder="A newsletter tool, a research archive, a booking form..."></div>
+        <div class="field"><label for="f-who">Who it is for</label><input id="f-who" value="People I meet at Edge City India who ask what I work on." placeholder="Me, my team, the public..."></div>
+        <div class="field"><label for="f-stack">Tools or stack</label><input id="f-stack" value="Plain HTML and CSS, no frameworks. Notes live in notes/ as Markdown." placeholder="Google Sheets + Python, Next.js, plain HTML..."></div>
+        <div class="field"><label>How you like to work</label>
+          <div class="checks">
+            <label><input type="checkbox" data-rule="Explain what you are about to change, in plain language, before changing it." checked> Explain before changing</label>
+            <label><input type="checkbox" data-rule="Ask before installing anything or running commands that reach the network." checked> Ask before installing anything</label>
+            <label><input type="checkbox" data-rule="Make small commits with clear messages after each working step." checked> Small commits, clear messages</label>
+            <label><input type="checkbox" data-rule="American spelling. No em dashes."> American spelling, no em dashes</label>
+            <label><input type="checkbox" data-rule="When something is ambiguous, ask one question rather than guessing."> Ask instead of guessing</label>
+          </div>
+        </div>
+        <div class="field"><label for="f-run">How to run it</label><input id="f-run" value="Open site/index.html in a browser." placeholder="npm run dev, python app.py, open index.html..."></div>
+        <div class="field"><label for="f-test">How to check it works</label><input id="f-test" value="None yet. Re-read the page after each change and check every link." placeholder="npm test, a URL to load, a screenshot..."></div>
+        <div class="field"><label for="f-never">Never do (one per line)</label><textarea id="f-never">Change the wording of my notes without asking
+Add analytics or tracking
+Delete anything in notes/</textarea></div>
+        <p class="small" style="margin:0">Example values. Replace them with your own; the file on the right updates as you type.</p>
+      </form>
+      <div class="filecard">
+        <div class="tbar"><span class="dots"><i></i><i></i><i></i></span><span class="title">CLAUDE.md</span><span class="mode">save in your project folder</span></div>
+        <pre id="cmd-out"></pre>
+        <div class="fbar"><span id="cmd-lines">0 lines</span><button id="cmd-copy" type="button">Copy file</button></div>
+      </div>
+    </div>
+    <div class="memmap rv">
+      <div><code>./CLAUDE.md</code>Lives in the project and travels with it in git. The team's shared rules. Under 200 lines; every line should earn its place, and <code>/doctor</code> will suggest trims.</div>
+      <div><code>./CLAUDE.local.md</code>Same folder, just for you. Add it to <code>.gitignore</code>. Your own preferences and notes.</div>
+      <div><code>~/.claude/CLAUDE.md</code>Everything you work on, on this machine. How you like to be talked to, tools you always use.</div>
+      <div><code>/memory</code>Claude also keeps its own notes per project, in auto memory, and reads them at the start of a session. Ask it to remember something; <code>/memory</code> shows what it kept.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 07 HABITS ===================== -->
+<section class="sec" id="habits">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">07 · Habits</p>
+      <h2>Eight habits that separate frustrating from fluent.</h2>
+      <p class="lead">Each card has a vague prompt on the back and a better one under it. Tap or hover to flip.</p>
+    </div>
+    <div class="habits">
+      <div class="flip rv" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>Look before leaping.</h3><p>Ask it to explore and explain first. Changes come after understanding.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">"Fix the login bug."</span></div><div><span class="lbl">Try</span><span class="good">"Read how login works and tell me the three most likely causes of the redirect bug before changing anything."</span></div></div>
+      </div></div>
+      <div class="flip rv d1" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>Give it a way to check.</h3><p>A test, a screenshot, a URL, an expected output. It will iterate until it passes.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">"Make the chart look right."</span></div><div><span class="lbl">Try</span><span class="good">"The bars overlap the labels at 390px wide. Fix it and show me a screenshot at that width."</span></div></div>
+      </div></div>
+      <div class="flip rv d2" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>Describe the outcome.</h3><p>Say what done looks like, and name files and constraints. Leave the keystrokes to it.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">"Open the CSS file and change line 40 to blue."</span></div><div><span class="lbl">Try</span><span class="good">"Buttons should use our brand blue, #0E5A82, everywhere, including hover and focus states."</span></div></div>
+      </div></div>
+      <div class="flip rv d3" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>Plan mode for big changes.</h3><p>Anything touching more than a few files: switch to plan mode, approve the plan, then build. Shift+Tab in the terminal; the mode selector in Desktop.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">"Rewrite the payment flow."</span></div><div><span class="lbl">Try</span><span class="good">"/plan Propose how you would restructure the payment flow. Do not change anything yet."</span></div></div>
+      </div></div>
+      <div class="flip rv" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>Interrupt early.</h3><p>The moment it heads the wrong way, stop it and say what you wanted. Waiting for the wrong thing to finish is the expensive move.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">Watching it rebuild the layout you liked.</span></div><div><span class="lbl">Try</span><span class="good">Stop it (Esc, or the stop button), then: "Keep the existing layout; only change the colors."</span></div></div>
+      </div></div>
+      <div class="flip rv d1" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>/clear between tasks.</h3><p>Context is a whiteboard. A full one makes it worse at everything. Two failed corrections in a row means clear and rephrase.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">One endless session for the whole day.</span></div><div><span class="lbl">Try</span><span class="good">"/clear" then a fresh, specific ask. "/compact" when you need to keep the thread and lose the noise.</span></div></div>
+      </div></div>
+      <div class="flip rv d2" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>Commit small, often.</h3><p>Git is the undo button. Ask for a commit after each working step and you can always go back.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">One giant change at the end of the day.</span></div><div><span class="lbl">Try</span><span class="good">"Commit what we have with a clear message" every time something works.</span></div></div>
+      </div></div>
+      <div class="flip rv d3" tabindex="0"><div class="inner">
+        <div class="face front"><div><span class="k">Habit</span><h3>Read the diff.</h3><p>You own what ships. When anything is unclear, ask for the explanation, in plain language.</p></div><span class="hint">flip for the prompt</span></div>
+        <div class="face back"><div><span class="lbl">Instead of</span><span class="bad">Accepting every edit because the tests passed.</span></div><div><span class="lbl">Try</span><span class="good">"Explain what you changed and why, in plain language, and what you would watch for."</span></div></div>
+      </div></div>
+    </div>
+
+    <div class="rules rv">
+      <div>
+        <p class="eyebrow">Three rules for your real machine</p>
+        <h3>Fast is fine. Reckless is not.</h3>
+        <p>Claude Code is careful by default. These rules keep it that way once you start moving quickly.</p>
+      </div>
+      <ol>
+        <li><span class="n">1</span><div><b>Keep the permission prompts.</b> <code>--dangerously-skip-permissions</code> belongs in a throwaway container, never on the laptop with your life on it. Auto mode is the fast option that still has a reviewer in the loop.</div></li>
+        <li><span class="n">2</span><div><b>Keep secrets out of prompts and commits.</b> Put keys in a <code>.env</code> file, add it to <code>.gitignore</code>, and say so in CLAUDE.md. Claude can use a key without you ever pasting it into chat.</div></li>
+        <li><span class="n">3</span><div><b>Outbound actions need your explicit yes.</b> Sending, paying, deploying, deleting. Ask it to draft and stop; you press the button. Draft-only is a habit worth building on day one.</div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 08 WEEKS ===================== -->
+<section class="sec" id="weeks">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">08 · Three weeks in Goa</p>
+      <h2>One workshop a week, and the days in between are the point.</h2>
+      <p class="lead">Each week's workshop opens a track. Build clinics between them turn what you saw into something you made. Bring a project; the format works best when the thing you build is yours.</p>
+    </div>
+    <div class="terrace">
+      <div class="weeks">
+        <div class="week rv">
+          <div class="wk"><b>Week 1</b><span>Oct 11 to 17</span></div>
+          <h3>Beginner</h3>
+          <p class="sub">From an idea to a working tool.</p>
+          <dl>
+            <dt>Arrive with</dt><dd>An idea, or a folder of notes. Zero terminal experience is fine.</dd>
+            <dt>Leave with</dt><dd>Claude Code installed, a CLAUDE.md, and one tool you built and can show someone.</dd>
+            <dt>You will learn</dt><dd>The loop, permission prompts, plain-language iteration, <code>/init</code>, <code>/clear</code>, and enough git to undo.</dd>
+          </dl>
+        </div>
+        <div class="week w2 rv d1">
+          <div class="wk"><b>Week 2</b><span>Oct 18 to 24</span></div>
+          <h3>Intermediate</h3>
+          <p class="sub">Bring a real project.</p>
+          <dl>
+            <dt>Arrive with</dt><dd>A codebase, or a workflow you still run by hand.</dd>
+            <dt>Leave with</dt><dd>A feature shipped with tests, a Skill your team can reuse, and one connected tool.</dd>
+            <dt>You will learn</dt><dd>Skills in <code>.claude/skills/</code>, MCP servers for Notion, Drive, and databases, hooks that run after every edit, and <code>claude -p</code> inside scripts.</dd>
+          </dl>
+        </div>
+        <div class="week rv d2">
+          <div class="wk"><b>Week 3</b><span>Oct 25 to Nov 1</span></div>
+          <h3>Advanced</h3>
+          <p class="sub">Agents that run without you. Then the hackathon.</p>
+          <dl>
+            <dt>Arrive with</dt><dd>Something you want to keep running after you leave the room.</dd>
+            <dt>Leave with</dt><dd>An agent with checks around it, scheduled runs, a pull-request workflow, and a demo for the showcase.</dd>
+            <dt>You will learn</dt><dd>Subagents, worktrees for parallel sessions, Claude Code on the web and in CI, Routines that run on a schedule, and the Agent SDK.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="rhythm rv">
+      <div><b>Workshops</b>One per week, roughly ninety minutes, then a build session in the same room.</div>
+      <div><b>Build clinics</b>Twice a week, open to everyone. Bring the thing that broke.</div>
+      <div><b>Hackathon and showcase</b>Week 3. Teams, a deadline, and an audience. Finished beats perfect.</div>
+    </div>
+    <p class="small" style="margin-top:18px">Planned shape. Final times and rooms live on the village calendar.</p>
+  </div>
+</section>
+
+<!-- ===================== 09 CHECKLIST ===================== -->
+<section class="sec" id="checklist">
+  <div class="wrap two">
+    <div class="sticky-col">
+      <p class="eyebrow">09 · Your checklist</p>
+      <h2>Seven boxes, in order.</h2>
+      <p class="lead">This page remembers what you have ticked, on this device. Come back to it during the village.</p>
+      <p class="check-status" id="check-status">0 of 7 done</p>
+    </div>
+    <div>
+      <ul class="checklist" id="checklist">
+        <li><label><input type="checkbox" data-id="install"><span>Installed Claude Code and logged in<small>Type <code>claude --version</code> to check.</small></span></label></li>
+        <li><label><input type="checkbox" data-id="folder"><span>Opened a project folder in it<small>Pick the folder in the Desktop app's Code tab, or <code>cd</code> into it and type <code>claude</code>.</small></span></label></li>
+        <li><label><input type="checkbox" data-id="init"><span>Ran <code>/init</code> and edited the CLAUDE.md it wrote<small>Add how you like to work and what to never do.</small></span></label></li>
+        <li><label><input type="checkbox" data-id="task"><span>Finished one real task end to end<small>Something you can open, show, or use.</small></span></label></li>
+        <li><label><input type="checkbox" data-id="plan"><span>Used plan mode once on purpose<small>Choose Plan in the mode selector, or Shift+Tab until you see "plan mode on", then ask.</small></span></label></li>
+        <li><label><input type="checkbox" data-id="git"><span>Asked it to commit, then looked at the diff<small>"Commit this with a clear message."</small></span></label></li>
+        <li><label><input type="checkbox" data-id="clinic"><span>Brought a project to a build clinic<small>The thing that broke counts.</small></span></label></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <p class="made">Built in Claude Code by Claude Fable 5.1 for Edge City.</p>
+      <p>Edge City is a society incubator: temporary villages where builders, researchers, and creators live and work together for weeks at a time. Edge City India runs Oct 11 to Nov 1, 2026 in Mandrem, North Goa.</p>
+      <p class="fine">Claude Code moves fast. When this page and the official docs disagree, trust the docs. Last checked against the documentation in September 2026.</p>
+    </div>
+    <div>
+      <ul>
+        <li><a href="https://code.claude.com/docs/en/quickstart" rel="noopener">Claude Code quickstart (terminal)</a></li>
+        <li><a href="https://code.claude.com/docs/en/desktop-quickstart" rel="noopener">Claude Code in the Desktop app</a></li>
+        <li><a href="https://code.claude.com/docs/en/best-practices" rel="noopener">Best practices, from the Claude Code docs</a></li>
+        <li><a href="https://code.claude.com/docs/en/memory" rel="noopener">CLAUDE.md and memory</a></li>
+        <li><a href="https://code.claude.com/docs/en/permission-modes" rel="noopener">Permission modes</a></li>
+        <li><a href="https://www.edgecity.live" rel="noopener">edgecity.live</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('js');
+var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $ = function(s,el){return (el||document).querySelector(s)};
+var $$ = function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s))};
+var sleep = function(ms){return new Promise(function(r){setTimeout(r, RM ? 0 : ms)})};
+
+/* ---------- reveal ---------- */
+var rvs = $$('.rv');
+if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  rvs.forEach(function(el){io.observe(el)});
+}else{rvs.forEach(function(el){el.classList.add('in')})}
+
+/* ---------- progress + rail ---------- */
+var prog = $('#progress'), railLinks = $$('#rail a');
+var secs = railLinks.map(function(a){return $(a.getAttribute('href'))}).filter(Boolean);
+function onScroll(){
+  var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+  prog.style.width = (max>0 ? (h.scrollTop/max*100) : 0) + '%';
+  var y = h.scrollTop + h.clientHeight*0.4, idx = 0;
+  for(var i=0;i<secs.length;i++){ if(secs[i].offsetTop <= y) idx = i; }
+  railLinks.forEach(function(a,j){a.classList.toggle('on', j===idx)});
+}
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+/* ---------- copy buttons ---------- */
+function copyText(t){
+  if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t);
+  return new Promise(function(res,rej){ var ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');res()}catch(e){rej(e)} document.body.removeChild(ta); });
+}
+$$('.copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    copyText(b.getAttribute('data-copy')).then(function(){ b.textContent='Copied'; b.classList.add('ok'); setTimeout(function(){b.textContent='Copy';b.classList.remove('ok')},1600); }, function(){ b.textContent='Select and copy'; });
+  });
+});
+
+/* ---------- tabs ---------- */
+$$('.tabs').forEach(function(tabs){
+  var panels = $$('.tabpanel', tabs.parentNode);
+  $$('button', tabs).forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('button', tabs).forEach(function(x){x.classList.toggle('on', x===b); x.setAttribute('aria-selected', x===b)});
+      panels.forEach(function(p){p.classList.toggle('on', p.getAttribute('data-panel')===b.getAttribute('data-tab'))});
+    });
+  });
+});
+
+/* ---------- tilt ---------- */
+if(!RM && matchMedia('(hover:hover)').matches){
+  $$('[data-tilt]').forEach(function(el){
+    el.addEventListener('pointermove', function(e){
+      var r = el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform = 'rotateX('+(-y*7)+'deg) rotateY('+(x*9)+'deg) translateZ(6px)';
+    });
+    el.addEventListener('pointerleave', function(){ el.style.transform=''; });
+  });
+}
+
+/* ---------- hero: ocean of points (three.js) ---------- */
+(function ocean(){
+  var canvas = $('#ocean'), hero = $('#top');
+  if(!canvas || !window.THREE) return;
+  var renderer;
+  try{ renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:false, alpha:true, powerPreference:'high-performance'}); }
+  catch(e){ canvas.style.display='none'; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 1.6));
+  var small = innerWidth < 700;
+  var COLS = small?110:180, ROWS = small?46:66, SX=0.24, SZ=0.36, N=COLS*ROWS;
+  var pos = new Float32Array(N*3), col = new Float32Array(N*3);
+  for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){ var i=r*COLS+c; pos[i*3]=(c-COLS/2)*SX; pos[i*3+1]=0; pos[i*3+2]=-r*SZ+2; }
+  var geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col,3));
+  var mat = new THREE.PointsMaterial({size:0.075, vertexColors:true, transparent:true, opacity:.92, sizeAttenuation:true, blending:THREE.AdditiveBlending, depthWrite:false});
+  var scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x0a1519, 0.03);
+  scene.add(new THREE.Points(geo, mat));
+  var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
+  var deep = new THREE.Color('#0b2a33'), teal = new THREE.Color('#1a8a92'), sand = new THREE.Color('#ece6d9'), coral = new THREE.Color('#e8825f'), tmp = new THREE.Color();
+  var mouse = {x:0,y:0,tx:0,ty:0}, t=0, visible=true, sp=0;
+  hero.addEventListener('pointermove', function(e){ var rr=hero.getBoundingClientRect(); mouse.tx=(e.clientX-rr.left)/rr.width*2-1; mouse.ty=(e.clientY-rr.top)/rr.height*2-1; });
+  function resize(){ var w=hero.clientWidth, h=hero.clientHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
+  addEventListener('resize', resize); resize();
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(es){visible=es[0].isIntersecting}).observe(hero); }
+  addEventListener('scroll', function(){ sp = Math.min(1, Math.max(0, (document.documentElement.scrollTop||0)/Math.max(1,hero.offsetHeight))); hero.style.setProperty('--sp', sp.toFixed(3)); }, {passive:true});
+  function frame(){
+    if(!RM) requestAnimationFrame(frame);
+    if(!visible || document.hidden) return;
+    t += 0.011;
+    mouse.x += (mouse.tx-mouse.x)*0.06; mouse.y += (mouse.ty-mouse.y)*0.06;
+    var mx = mouse.x*COLS*SX*0.42, mz = -ROWS*SZ*0.45 + mouse.y*ROWS*SZ*0.3;
+    for(var i=0;i<N;i++){
+      var x=pos[i*3], z=pos[i*3+2];
+      var y = 0.34*Math.sin(x*0.42+t*0.9) + 0.22*Math.sin(z*0.58-t*0.7) + 0.1*Math.sin((x+z)*1.35+t*1.6) + 0.06*Math.sin(x*2.2-t*2.1);
+      var dx=x-mx, dz=z-mz, d2=dx*dx+dz*dz;
+      y += 0.55*Math.exp(-d2/7)*Math.sin(Math.sqrt(d2)*2.1 - t*3);
+      pos[i*3+1]=y;
+      var h = Math.min(1, Math.max(0, (y+0.55)/1.15));
+      tmp.copy(deep).lerp(teal, h*0.85).lerp(sand, Math.pow(h,4)*0.85);
+      var sun = Math.exp(-((x-5)*(x-5)+(z+14)*(z+14))/70);
+      tmp.lerp(coral, sun*0.75);
+      col[i*3]=tmp.r; col[i*3+1]=tmp.g; col[i*3+2]=tmp.b;
+    }
+    geo.attributes.position.needsUpdate = true; geo.attributes.color.needsUpdate = true;
+    camera.position.set(mouse.x*0.6, 2.4 + sp*3.2, 5.5 - sp*2);
+    camera.lookAt(mouse.x*1.4, 0.3 - sp*2.4, -14);
+    renderer.render(scene, camera);
+  }
+  frame();
+  if(RM){ requestAnimationFrame(frame); }
+})();
+
+/* ---------- hero: typed exchanges ---------- */
+(function heroType(){
+  var body = $('#hero-term'); if(!body) return;
+  var ex = [
+    {u:'Turn my notes folder into a simple website I can share with the village.', a:'Reading notes/ first (14 files). I will propose a structure before writing anything.'},
+    {u:'Add a dark mode toggle and a test that proves it works.', a:'Found the theme tokens in styles/tokens.css. Plan: a toggle that reuses your ghost button, a test that flips it. Three files. Go?'},
+    {u:'Read applications.csv and tell me what is missing before I import it.', a:'212 rows, 9 columns. 31 rows have no city and 4 emails repeat. Want me to flag them in a new column?'}
+  ];
+  var k = 0, token = 0;
+  function line(cls){ var p=document.createElement('p'); p.className='tl '+cls; body.appendChild(p); return p; }
+  function type(el, text, my){ return new Promise(function(res){ var i=0; (function step(){ if(my!==token) return res(); el.textContent = text.slice(0,i); if(i<text.length){ i++; setTimeout(step, RM?0:(18+Math.random()*26)); } else res(); })(); }); }
+  async function run(){
+    var my = ++token;
+    body.innerHTML='';
+    var e = ex[k % ex.length]; k++;
+    var u = line('u'); var cur=document.createElement('span'); cur.className='cursor'; u.appendChild(cur);
+    var span=document.createElement('span'); u.insertBefore(span,cur);
+    await sleep(500); await type(span, e.u, my); if(my!==token) return;
+    await sleep(600); cur.remove();
+    var th = line('think'); th.textContent='Thinking…'; await sleep(RM?0:1100); if(my!==token) return; th.remove();
+    var a = line('a'); await type(a, e.a, my); if(my!==token) return;
+    var nx = line('u'); nx.appendChild(cur);
+    await sleep(5200); if(my!==token) return; run();
+  }
+  run();
+})();
+
+/* ---------- the loop: scroll-scrubbed ring ---------- */
+(function loop(){
+  var track = $('#loop-track'), ring = $('#ring'), stages = $$('#stage-copy .stage'), dots = $$('#loop-dots i'), cards = $$('#ring .rcard');
+  if(!track || !ring) return;
+  var cur = -1;
+  function upd(){
+    if(innerWidth <= 900) return;
+    var r = track.getBoundingClientRect(), total = track.offsetHeight - innerHeight;
+    var p = total>0 ? Math.min(1, Math.max(0, -r.top/total)) : 0;
+    var rot = -p*288; ring.style.setProperty('--rot', rot+'deg');
+    var idx = Math.min(4, Math.max(0, Math.round(p*4)));
+    cards.forEach(function(c,i){ var ang = ((i*72 + rot) % 360 + 360) % 360; var f = Math.cos(ang*Math.PI/180); c.style.opacity = (0.18 + 0.82*Math.max(0,(f+0.35)/1.35)).toFixed(3); c.classList.toggle('front', i===idx); });
+    if(idx!==cur){ cur=idx; stages.forEach(function(s,i){s.classList.toggle('on', i===idx)}); dots.forEach(function(d,i){d.classList.toggle('on', i<=idx)}); }
+  }
+  function size(){ var h=0; stages.forEach(function(s){ h=Math.max(h, s.scrollHeight); }); $('#stage-copy').style.minHeight = Math.max(360, h+8)+'px'; }
+  addEventListener('scroll', upd, {passive:true}); addEventListener('resize', function(){size();upd()}); size(); upd(); if(document.fonts && document.fonts.ready){ document.fonts.ready.then(size); }
+})();
+
+/* ---------- session simulator ---------- */
+(function sim(){
+  var body=$('#sim-body'), title=$('#sim-title'), mode=$('#sim-mode'), input=$('#sim-in'), notes=$$('#notes li');
+  if(!body) return;
+  var S = {
+    beginner:{ cwd:'~/farm-notes', mode:'⏸ manual mode on', steps:[
+      {t:'user', text:'I have a folder of notes about my regenerative farming project. Make a simple one-page website from them so I can share it with people in the village.'},
+      {t:'ai', text:'I will read the notes first and propose a structure before writing anything.'},
+      {t:'note', id:'reads'},
+      {t:'tool', name:'Glob', arg:'**/*.md', res:'14 files'},
+      {t:'tool', name:'Read', arg:'about.md, soil-trials.md, next-steps.md', res:'3 files · 2,140 words'},
+      {t:'ai', text:'Proposed structure: 1) what the project is, 2) results from the soil trials, 3) how to get involved, with your email in the footer. One file, no frameworks, so it opens anywhere. Sound right?'},
+      {t:'note', id:'plans'},
+      {t:'user', text:'Yes. Keep it calm and readable.'},
+      {t:'perm', tool:'Write', target:'site/index.html', desc:'Create a new file', remember:'write'},
+      {t:'note', id:'asks'},
+      {t:'tool', name:'Write', arg:'site/index.html', res:'184 lines'},
+      {t:'tool', name:'Read', arg:'site/index.html', res:'re-checked: 3 sections, 0 broken links'},
+      {t:'note', id:'checks'},
+      {t:'ai', text:'Done. Double-click site/index.html to open it in your browser. I kept your headings, turned the trial results into a short table, and put your email in the footer.'},
+      {t:'note', id:'reports'},
+      {t:'user', text:'Make the green softer and add a photo placeholder at the top.'},
+      {t:'perm-if', remember:'write', tool:'Edit', target:'site/index.html', desc:'Edit an existing file'},
+      {t:'tool', name:'Edit', arg:'site/index.html', res:'2 edits'},
+      {t:'ai', text:'Softened the green and added a placeholder image block with a caption you can replace. Refresh the page to see it.'},
+      {t:'done', text:'Your turn. Open a terminal, cd into a folder of your own notes, type claude, and ask for the same thing.'}
+    ]},
+    intermediate:{ cwd:'~/dev/field-app', mode:'⏸ manual mode on', steps:[
+      {t:'user', text:'Add a dark mode toggle to this app. Match the existing button style and add a test.'},
+      {t:'ai', text:'Let me see how theming and buttons work here first.'},
+      {t:'note', id:'reads'},
+      {t:'tool', name:'Grep', arg:'"theme|prefers-color-scheme"', res:'6 matches in 3 files'},
+      {t:'tool', name:'Read', arg:'src/styles/tokens.css, src/components/Button.tsx', res:'2 files'},
+      {t:'ai', text:'Plan: 1) a data-theme attribute driven by a small useTheme hook, 2) a ThemeToggle that reuses your Button variant="ghost", 3) a test that flips the theme and checks the attribute. Three files touched. Go ahead?'},
+      {t:'note', id:'plans'},
+      {t:'user', text:'Go.'},
+      {t:'perm', tool:'Edit', target:'src/styles/tokens.css', desc:'Edit an existing file', remember:'edit'},
+      {t:'note', id:'asks'},
+      {t:'tool', name:'Edit', arg:'src/styles/tokens.css', res:'+14 lines'},
+      {t:'tool', name:'Write', arg:'src/components/ThemeToggle.tsx', res:'38 lines'},
+      {t:'tool', name:'Write', arg:'src/components/ThemeToggle.test.tsx', res:'22 lines'},
+      {t:'perm', tool:'Bash', target:'npm test -- ThemeToggle', desc:'Run a command', remember:'bash'},
+      {t:'run', cmd:'npm test -- ThemeToggle', out:[['ok','✓ renders with the current theme'],['bad','✕ toggles to dark   expected "dark", received "light"']]},
+      {t:'note', id:'checks'},
+      {t:'ai', text:'The toggle updated state but wrote the attribute on the wrong element. Fixing.'},
+      {t:'tool', name:'Edit', arg:'src/components/ThemeToggle.tsx', res:'1 edit'},
+      {t:'run', cmd:'npm test -- ThemeToggle', out:[['ok','✓ renders with the current theme'],['ok','✓ toggles to dark'],['ok','2 passed']]},
+      {t:'ai', text:'Both tests pass. tokens.css gained a dark palette under [data-theme="dark"]; ThemeToggle reuses your ghost Button; the test covers the flip. Want me to commit this?'},
+      {t:'note', id:'reports'},
+      {t:'user', text:'Commit it.'},
+      {t:'perm-if', remember:'bash', tool:'Bash', target:'git commit -am "Add dark mode toggle with test"', desc:'Run a command'},
+      {t:'run', cmd:'git commit -am "Add dark mode toggle with test"', out:[['','[main 3f2a9c1] Add dark mode toggle with test'],['','3 files changed, 74 insertions(+)']]},
+      {t:'done', text:'Your turn. Bring a project that has a test command and ask for one small feature.'}
+    ]},
+    advanced:{ cwd:'~/dev/ops', mode:'⏸ plan mode on', steps:[
+      {t:'sys', text:'⏸ plan mode on  (shift+tab)  ·  Claude will read and propose, and change nothing until you approve.'},
+      {t:'user', text:'Our nightly data export is failing silently. Find out why and fix it properly, with a test that would have caught it.'},
+      {t:'ai', text:'Plan mode is on, so I will investigate and propose before changing anything.'},
+      {t:'note', id:'reads'},
+      {t:'tool', name:'Grep', arg:'"export|nightly|schedule"', res:'11 matches in 4 files'},
+      {t:'tool', name:'Read', arg:'jobs/export.ts, jobs/scheduler.ts, lib/storage.ts', res:'3 files'},
+      {t:'tool', name:'Bash', arg:'git log --oneline -8 -- jobs/ lib/', res:'8 commits · lib/storage.ts changed 6 days ago'},
+      {t:'ai', text:'Found it. storage.upload() started returning a Promise six days ago (commit a41c) and export.ts never awaits it, so failures are swallowed. Plan: 1) await it and surface the error, 2) retry twice with backoff, 3) a test with a failing mock upload, 4) a subagent reviews the codebase for other unawaited storage calls.'},
+      {t:'note', id:'plans'},
+      {t:'perm', kind:'plan'},
+      {t:'note', id:'asks'},
+      {t:'sys', text:'⏵⏵ accept edits on'},
+      {t:'tool', name:'Edit', arg:'jobs/export.ts', res:'+9 −2'},
+      {t:'tool', name:'Write', arg:'jobs/export.test.ts', res:'41 lines'},
+      {t:'tool', name:'Agent', arg:'review: find other unawaited storage calls', res:'1 found in jobs/backup.ts · fixed'},
+      {t:'run', cmd:'npm test -- jobs', out:[['ok','✓ export surfaces upload failure'],['ok','✓ export retries twice, then throws'],['ok','✓ backup awaits upload'],['ok','3 passed']]},
+      {t:'note', id:'checks'},
+      {t:'ai', text:'Three passing tests. The export now fails loudly, retries twice, and the reviewer caught the same bug in backup.ts. Ready to open a pull request?'},
+      {t:'note', id:'reports'},
+      {t:'user', text:'Yes, open the PR.'},
+      {t:'perm', tool:'Bash', target:'gh pr create --title "Await storage uploads in nightly jobs" --fill', desc:'Run a command', remember:'gh'},
+      {t:'run', cmd:'gh pr create --title "Await storage uploads in nightly jobs" --fill', out:[['','https://github.com/your-org/ops/pull/142']]},
+      {t:'done', text:'Your turn. Press shift+tab in your own project until you see plan mode, and ask Claude to investigate a bug without fixing it yet.'}
+    ]}
+  };
+  var current='beginner', token=0, running=false, fast=false, granted={};
+  function el(cls, html){ var p=document.createElement('p'); p.className='tl '+cls; if(html!==undefined) p.innerHTML=html; body.appendChild(p); body.scrollTop=body.scrollHeight; return p; }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]}); }
+  function type(node, text, my){ return new Promise(function(res){ var i=0; (function step(){ if(my!==token) return res(); if(fast||RM){ node.textContent=text; body.scrollTop=body.scrollHeight; return res(); } node.textContent=text.slice(0,i); body.scrollTop=body.scrollHeight; if(i<text.length){ i++; setTimeout(step, 14+Math.random()*22); } else res(); })(); }); }
+  function wait(ms){ return sleep(fast?0:ms); }
+  function setNote(id){ notes.forEach(function(n){ var is=n.getAttribute('data-n')===id; if(is){n.classList.add('on');n.classList.remove('done')} else if(n.classList.contains('on')){n.classList.remove('on');n.classList.add('done')} }); }
+  function resetNotes(){ notes.forEach(function(n){n.classList.remove('on','done')}); }
+  function permission(step, my){
+    return new Promise(function(res){
+      var box=document.createElement('div'); box.className='perm';
+      var opts;
+      if(step.kind==='plan'){
+        box.innerHTML='<div class="q"><b>Ready to code?</b></div><div class="path">Approving leaves plan mode and starts editing.</div>';
+        opts=[['1','Yes, and use auto mode','yes'],['2','Yes, manually approve edits','yes'],['3','No, keep planning','no']];
+      }else{
+        box.innerHTML='<div class="q">Claude wants to <b>'+esc(step.desc.toLowerCase())+'</b></div><div class="path">'+esc(step.tool)+'  '+esc(step.target)+'</div>';
+        opts=[['1','Yes','yes'],['2',"Yes, and don't ask again",'always'],['3','No, and tell Claude what to do differently  (esc)','no']];
+      }
+      var wrap=document.createElement('div'); wrap.className='opts';
+      opts.forEach(function(o){ var b=document.createElement('button'); b.type='button'; b.innerHTML='<span class="k">'+o[0]+'.</span>'+esc(o[1]); b.addEventListener('click',function(){ if(box.classList.contains('answered')||my!==token) return; box.classList.add('answered'); b.classList.add('chosen'); res(o[2]); }); wrap.appendChild(b); });
+      box.appendChild(wrap); body.appendChild(box); body.scrollTop=body.scrollHeight;
+      input.innerHTML='<span>Waiting for your answer above</span>';
+    });
+  }
+  async function run(fastMode){
+    var my=++token; running=true; fast=(fastMode===true); granted={};
+    var sc=S[current]; body.innerHTML=''; resetNotes();
+    title.textContent='claude · '+sc.cwd; mode.textContent=sc.mode; mode.classList.toggle('plan', /plan/.test(sc.mode));
+    input.innerHTML='<span>Session running…</span>';
+    $('#sim-run').textContent='Restart';
+    for(var i=0;i<sc.steps.length;i++){
+      if(my!==token) return;
+      var s=sc.steps[i];
+      if(s.t==='user'){ var u=el('u'); var cur=document.createElement('span'); cur.className='cursor'; var sp=document.createElement('span'); u.appendChild(sp); u.appendChild(cur); await wait(500); await type(sp,s.text,my); cur.remove(); await wait(350); }
+      else if(s.t==='ai'){ var th=el('think','Thinking…'); await wait(700); if(my!==token) return; th.remove(); var a=el('a'); await type(a,s.text,my); await wait(300); }
+      else if(s.t==='tool'){ var tl=el('tool','<b>'+esc(s.name)+'</b>('+esc(s.arg)+')'); await wait(420); if(my!==token) return; el('res',esc(s.res)); await wait(260); }
+      else if(s.t==='run'){ el('tool','<b>Bash</b>('+esc(s.cmd)+')'); await wait(600); if(my!==token) return; for(var j=0;j<s.out.length;j++){ el('out','<span class="'+s.out[j][0]+'">'+esc(s.out[j][1])+'</span>'); await wait(220); } await wait(200); }
+      else if(s.t==='sys'){ el('sys',esc(s.text)); if(/accept edits/.test(s.text)){ mode.textContent='⏵⏵ accept edits on'; mode.classList.remove('plan'); } await wait(500); }
+      else if(s.t==='note'){ setNote(s.id); }
+      else if(s.t==='perm' || s.t==='perm-if'){
+        if(s.t==='perm-if' && granted[s.remember]){ continue; }
+        await wait(250); if(my!==token) return;
+        var ans = await permission(s,my); if(my!==token) return;
+        input.innerHTML='<span>Session running…</span>';
+        if(ans==='always' && s.remember) granted[s.remember]=true;
+        if(ans==='no'){
+          await wait(300);
+          var stop=el('a'); await type(stop, s.kind==='plan' ? 'Staying in plan mode. Tell me what to change in the plan.' : 'Understood, I will hold off. Tell me what you would like done differently.', my);
+          el('done','You said no, and it stopped. That is the whole safety model in one keypress. Press Restart to try the other path.');
+          input.innerHTML='<span class="cursor"></span>'; running=false; $('#sim-run').textContent='Restart'; return;
+        }
+        await wait(300);
+      }
+      else if(s.t==='done'){ await wait(400); el('done',esc(s.text)); }
+    }
+    input.innerHTML='<span class="cursor"></span>'; running=false; $('#sim-run').textContent='Run again';
+    notes.forEach(function(n){ if(n.classList.contains('on')){n.classList.remove('on');n.classList.add('done')} });
+  }
+  $$('.chip[data-scn]').forEach(function(c){ c.addEventListener('click', function(){ $$('.chip[data-scn]').forEach(function(x){x.classList.toggle('on',x===c)}); current=c.getAttribute('data-scn'); token++; body.innerHTML=''; resetNotes(); title.textContent='claude · '+S[current].cwd; mode.textContent=S[current].mode; mode.classList.toggle('plan',/plan/.test(S[current].mode)); input.innerHTML='<span>Press run to start</span>'; $('#sim-run').textContent='Run session'; running=false; }); });
+  $('#sim-run').addEventListener('click', function(){ run(false); });
+  $('#sim-skip').addEventListener('click', function(){ if(!running){ run(true); } else { fast=true; } });
+  // resting state: show the opening exchange so the panel reads at a glance
+  (function rest(){ var sc=S[current]; var u=el('u'); u.textContent=sc.steps[0].t==='sys'?sc.steps[1].text:sc.steps[0].text; el('a', esc(sc.steps[0].t==='sys'?sc.steps[2].text:sc.steps[1].text)); el('sys','Press "Run session" to watch the rest, including the permission prompt.'); })();
+})();
+
+/* ---------- setup doors ---------- */
+(function doors(){
+  var btns=$$('.door'), panels=$$('.door-panel'); if(!btns.length) return;
+  var KEY='ccfg-door'; var saved=null; try{ saved=localStorage.getItem(KEY); }catch(e){}
+  function pick(id,store){ btns.forEach(function(b){ var on=b.getAttribute('data-door')===id; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); }); panels.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-door')===id); }); if(store){ try{ localStorage.setItem(KEY,id); }catch(e){} } }
+  if(saved && btns.some(function(b){return b.getAttribute('data-door')===saved})) pick(saved,false);
+  btns.forEach(function(b){ b.addEventListener('click', function(){ pick(b.getAttribute('data-door'),true); }); });
+})();
+
+/* ---------- the path: trail map ---------- */
+(function trail(){
+  var fig=$('#trail'), svg=$('#trail-svg'), line=$('#trail-line'), stopsG=$('#trail-stops'), regions=$('#trail-regions'), walker=$('#trail-walker'), cap=$('#trail-cap');
+  if(!svg || !line || !line.getTotalLength) return;
+  var NS='http://www.w3.org/2000/svg';
+  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); if(text!==undefined) e.textContent=text; return e; }
+  var STOPS=[
+    {n:'01',l:'See the loop',s:'What Claude Code is, and the five-stage loop every session follows.',h:'#what',goa:false,pos:'right'},
+    {n:'02',l:'Set up',s:'Desktop app or terminal. Ten minutes either way.',h:'#setup',goa:false,pos:'above'},
+    {n:'03',l:'First session',s:'Run the scripted session here, then a real one in your own folder.',h:'#session',goa:false,pos:'above'},
+    {n:'04',l:'Teach it your world',s:'Write a CLAUDE.md so every answer fits your project.',h:'#claudemd',goa:false,pos:'below'},
+    {n:'05',l:'Build the habits',s:'Eight habits and three rules for the real machine.',h:'#habits',goa:false,pos:'upleft'},
+    {n:'06',l:'Week 1 · First tool',s:'Beginner workshop, then build clinics until something of yours works.',h:'#weeks',goa:true,pos:'above'},
+    {n:'07',l:'Week 2 · Real project',s:'Ship a feature with tests, reuse it as a Skill, connect a tool.',h:'#weeks',goa:true,pos:'below'},
+    {n:'08',l:'Week 3 · Agents',s:'Subagents, schedules, pull requests. Then the hackathon.',h:'#weeks',goa:true,pos:'below'},
+    {n:'09',l:'Showcase',s:'Show the village what you made.',h:'#weeks',goa:true,pos:'left'}
+  ];
+  var FR=[0.03,0.15,0.27,0.39,0.51,0.64,0.76,0.88,0.985];
+  var L=line.getTotalLength(); line.style.strokeDasharray=L; line.style.strokeDashoffset=L;
+  var defCap=cap.textContent;
+  // where the page ends and Goa begins
+  var bp=line.getPointAtLength(L*0.575);
+  regions.appendChild(mk('line',{x1:bp.x,y1:186,x2:bp.x,y2:498,class:'divider'}));
+  regions.appendChild(mk('text',{x:(70+bp.x)/2,y:512,class:'region','text-anchor':'middle'},'THIS PAGE · ONE AFTERNOON'));
+  regions.appendChild(mk('text',{x:(bp.x+1140)/2,y:512,class:'region','text-anchor':'middle'},'IN GOA · OCT 11 TO NOV 1'));
+  var els=STOPS.map(function(st,i){
+    var pt=line.getPointAtLength(L*FR[i]);
+    var a=mk('a',{href:st.h,class:'stop'+(st.goa?' goa':''),tabindex:'0'});
+    var lx=pt.x, ly=pt.y, anchor='middle', lead=null;
+    if(st.pos==='above'){ ly=pt.y-46; lead=[pt.y-17, ly+12]; }
+    else if(st.pos==='below'){ ly=pt.y+56; lead=[pt.y+17, ly-16]; }
+    else if(st.pos==='upleft'){ ly=pt.y-30; lx=pt.x-22; anchor='end'; }
+    else if(st.pos==='right'){ ly=pt.y+5; lx=pt.x+24; anchor='start'; }
+    else if(st.pos==='left'){ ly=pt.y+5; lx=pt.x-24; anchor='end'; }
+    if(lead) a.appendChild(mk('line',{x1:pt.x,y1:lead[0],x2:pt.x,y2:lead[1],class:'lead'}));
+    a.appendChild(mk('circle',{cx:pt.x,cy:pt.y,r:15,class:'ring'}));
+    a.appendChild(mk('text',{x:pt.x,y:pt.y+0.5,class:'num'},st.n));
+    a.appendChild(mk('text',{x:lx,y:ly,class:'lbl','text-anchor':anchor},st.l));
+    function show(){ cap.textContent=st.n+' · '+st.l+'. '+st.s; }
+    function hide(){ cap.textContent=defCap; }
+    a.addEventListener('mouseenter',show); a.addEventListener('focus',show); a.addEventListener('mouseleave',hide); a.addEventListener('blur',hide);
+    stopsG.appendChild(a); return a;
+  });
+  function upd(){
+    var r=fig.getBoundingClientRect(), vh=innerHeight;
+    var p=RM?1:Math.min(1,Math.max(0,(vh*0.88-r.top)/(r.height+vh*0.4)));
+    line.style.strokeDashoffset=L*(1-p);
+    var pt=line.getPointAtLength(L*p); walker.setAttribute('transform','translate('+pt.x.toFixed(1)+' '+pt.y.toFixed(1)+')');
+    els.forEach(function(a,i){ a.classList.toggle('on', p>=FR[i]-0.005); });
+  }
+  addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); upd();
+})();
+
+/* ---------- CLAUDE.md builder ---------- */
+(function builder(){
+  var form=$('#cmd-form'), out=$('#cmd-out'), lines=$('#cmd-lines'), copy=$('#cmd-copy'); if(!form) return;
+  function v(id){ return ($('#'+id).value||'').trim(); }
+  function esc(s){ return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]}); }
+  var plain='';
+  function build(){
+    var name=v('f-name')||'My project', what=v('f-what'), who=v('f-who'), stack=v('f-stack'), run=v('f-run'), test=v('f-test');
+    var rules=$$('.checks input:checked', form).map(function(c){return c.getAttribute('data-rule')});
+    var never=v('f-never').split('\n').map(function(s){return s.trim()}).filter(Boolean);
+    var L=[]; L.push('# '+name); L.push('');
+    if(what) L.push(what); if(who) L.push('For: '+who); if(what||who) L.push('');
+    if(stack){ L.push('## Stack'); L.push(stack); L.push(''); }
+    if(rules.length){ L.push('## How I like to work'); rules.forEach(function(r){L.push('- '+r)}); L.push(''); }
+    if(run||test){ L.push('## Commands'); if(run) L.push('- Run: '+run); if(test) L.push('- Check: '+test); L.push(''); }
+    if(never.length){ L.push('## Never'); never.forEach(function(n){L.push('- '+n)}); L.push(''); }
+    plain=L.join('\n').replace(/\n+$/,'\n');
+    out.innerHTML = plain.split('\n').map(function(l){ if(/^#/.test(l)) return '<span class="h">'+esc(l)+'</span>'; if(/^For: /.test(l)) return '<span class="c">'+esc(l)+'</span>'; return esc(l); }).join('\n');
+    var n=plain.split('\n').length-1; lines.textContent=n+' lines · under 200 is the target';
+  }
+  form.addEventListener('input', build); build();
+  copy.addEventListener('click', function(){ copyText(plain).then(function(){copy.textContent='Copied';copy.classList.add('ok');setTimeout(function(){copy.textContent='Copy file';copy.classList.remove('ok')},1600)}); });
+})();
+
+/* ---------- flip cards ---------- */
+$$('.flip').forEach(function(f){
+  f.addEventListener('click', function(){ f.classList.toggle('flipped'); });
+  f.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); f.classList.toggle('flipped'); } });
+});
+
+/* ---------- checklist (localStorage) ---------- */
+(function checklist(){
+  var boxes=$$('#checklist input'), status=$('#check-status'); if(!boxes.length) return;
+  var KEY='ccfg-checklist-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  function paint(){ var n=0; boxes.forEach(function(b){ var on=!!state[b.getAttribute('data-id')]; b.checked=on; b.closest('li').classList.toggle('done',on); if(on) n++; }); status.textContent=n+' of '+boxes.length+' done'+(n===boxes.length?' · see you at the showcase':''); }
+  boxes.forEach(function(b){ b.addEventListener('change', function(){ state[b.getAttribute('data-id')]=b.checked; try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} paint(); }); });
+  paint();
+})();
+})();
+</script>
+</body>
+</html>
