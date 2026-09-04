@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claude Code Field Guide</title>
-<meta name="description" content="Learn Claude Code in one afternoon. An interactive field guide for Edge City India: the path, the loop, setup in the Desktop app or terminal, a safe first session, CLAUDE.md, and the habits that make it work.">
+<meta name="description" content="Learn Claude Code in one afternoon. An interactive field guide for Edge City India: the loop, setup in the Desktop app or terminal, a safe first session, CLAUDE.md, and the habits that make it work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -280,36 +280,6 @@ details.help .body li{margin-bottom:8px}
 .door-panel{display:none}.door-panel.on{display:block}
 .door-panel .steps{margin-top:0}
 
-/* ---------- section: path (trail map) ---------- */
-.trail{margin:34px 0 0}
-.trail-scroll{overflow-x:auto;scrollbar-width:thin}
-.trail svg{display:block;width:100%;height:auto}
-@media(max-width:700px){.trail svg{min-width:880px}}
-.trail figcaption{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink-3);margin-top:14px;min-height:1.6em}
-.trail .swipe{display:none;margin:6px 0 0}
-@media(max-width:700px){.trail .swipe{display:block}}
-.trail .tr-sun{fill:var(--gold);opacity:.9}
-.trail .tr-wave{fill:none;stroke:var(--sea);stroke-width:1.5;opacity:.5}
-.trail .tr-horizon{stroke:var(--line-2)}
-.trail .tr-dune.d1{fill:var(--bg-3);opacity:.6}.trail .tr-dune.d2{fill:var(--bg-2)}.trail .tr-dune.d3{fill:var(--card)}
-.trail .tr-palm{stroke:var(--ink);opacity:.5}
-.trail .tr-base{fill:none;stroke:var(--line-2);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
-.trail .tr-line{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .15s linear}
-.trail .tr-walker .dot{fill:var(--accent)}.trail .tr-walker .halo{fill:var(--accent);opacity:.22}
-.trail .divider{stroke:var(--line-2);stroke-dasharray:2 6}
-.trail .region{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;fill:var(--ink-3)}
-.trail .stop{cursor:pointer;outline:none}
-.trail .stop .ring{fill:var(--card);stroke:var(--accent);stroke-width:2;transition:fill .3s,r .2s}
-.trail .stop.goa .ring{stroke:var(--gold)}
-.trail .stop .num{font-family:var(--mono);font-size:11px;font-weight:700;fill:var(--accent);text-anchor:middle;dominant-baseline:central}
-.trail .stop.goa .num{fill:var(--gold)}
-.trail .stop.on .ring{fill:var(--accent)}.trail .stop.goa.on .ring{fill:var(--gold)}
-.trail .stop.on .num{fill:#fff}.trail .stop.goa.on .num{fill:#0f1e23}
-.trail .stop .lbl{font-family:var(--sans);font-weight:600;font-size:14px;fill:var(--ink-3);transition:fill .3s}
-.trail .stop.on .lbl,.trail .stop:hover .lbl,.trail .stop:focus-visible .lbl{fill:var(--ink)}
-.trail .stop:hover .ring,.trail .stop:focus-visible .ring{stroke-width:3}
-.trail .stop .lead{stroke:var(--line-2)}
-
 /* ---------- section: session simulator ---------- */
 .sim-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 16px}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
@@ -436,15 +406,14 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
 
 <nav class="rail" id="rail" aria-label="Sections">
   <a href="#top"><span class="n">00</span><span class="l">Start</span></a>
-  <a href="#path"><span class="n">01</span><span class="l">The path</span></a>
-  <a href="#what"><span class="n">02</span><span class="l">What it is</span></a>
-  <a href="#loop"><span class="n">03</span><span class="l">The loop</span></a>
-  <a href="#setup"><span class="n">04</span><span class="l">Set up</span></a>
-  <a href="#session"><span class="n">05</span><span class="l">First session</span></a>
-  <a href="#claudemd"><span class="n">06</span><span class="l">CLAUDE.md</span></a>
-  <a href="#habits"><span class="n">07</span><span class="l">Habits</span></a>
-  <a href="#weeks"><span class="n">08</span><span class="l">Three weeks</span></a>
-  <a href="#checklist"><span class="n">09</span><span class="l">Checklist</span></a>
+  <a href="#what"><span class="n">01</span><span class="l">What it is</span></a>
+  <a href="#loop"><span class="n">02</span><span class="l">The loop</span></a>
+  <a href="#setup"><span class="n">03</span><span class="l">Set up</span></a>
+  <a href="#session"><span class="n">04</span><span class="l">First session</span></a>
+  <a href="#claudemd"><span class="n">05</span><span class="l">CLAUDE.md</span></a>
+  <a href="#habits"><span class="n">06</span><span class="l">Habits</span></a>
+  <a href="#weeks"><span class="n">07</span><span class="l">Three weeks</span></a>
+  <a href="#checklist"><span class="n">08</span><span class="l">Checklist</span></a>
 </nav>
 
 <!-- ===================== HERO ===================== -->
@@ -457,7 +426,7 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
       <div>
         <p class="eyebrow">Edge City India · Goa · Oct 11 to Nov 1, 2026</p>
         <h1>Learn Claude Code in <span class="accent">one afternoon.</span></h1>
-        <p class="lead">Claude Code is a programmer that works inside your own files, in a terminal or in the Claude Desktop app. You describe what you want in plain English; it reads, plans, edits, runs, and checks, asking before anything risky. This guide takes you from a blank screen to a working tool, and it stays useful for the three weeks after.</p>
+        <p class="lead">Claude Code is a programmer that works inside your own files, in a terminal or in the Claude Desktop app. You hand it real work in plain English; it reads, plans, edits, runs, and checks, asking before anything risky. This guide takes you from a blank screen to a working tool, and it stays useful for the three weeks after.</p>
         <div class="cta">
           <a class="btn primary" href="#setup">Start at zero <span class="arrow">→</span></a>
           <a class="btn ghost" href="#session">Watch a session first</a>
@@ -474,69 +443,26 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
 </header>
 
 <main>
-<!-- ===================== 01 PATH ===================== -->
-<section class="sec" id="path">
-  <div class="wrap">
-    <div class="narrow">
-      <p class="eyebrow">01 · The path</p>
-      <h2>The route, start to finish.</h2>
-      <p class="lead">Nine stops. The first five are on this page and take an afternoon; the last four are the three weeks in Goa. Every stop ends with something you can show someone, so you always know where you are.</p>
-    </div>
-    <figure class="trail rv" id="trail">
-      <div class="trail-scroll">
-        <svg id="trail-svg" viewBox="0 0 1200 530" role="img" aria-label="The learner's path: nine stops from seeing the loop to the showcase. The first five are on this page; the last four are the three weeks in Goa.">
-          <defs>
-            <linearGradient id="tr-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a8a92" stop-opacity=".3"/><stop offset="1" stop-color="#1a8a92" stop-opacity=".03"/></linearGradient>
-            <g id="tr-palm" fill="none" stroke-width="3" stroke-linecap="round">
-              <path d="M0 0c4-40 10-80 6-120"/>
-              <path d="M6-120c-30-10-60 0-82 22"/><path d="M6-120c30-10 60 0 82 22"/>
-              <path d="M6-120c-22-24-46-34-72-30"/><path d="M6-120c22-24 46-34 72-30"/>
-              <path d="M6-120c-4-30 2-50 12-62"/>
-            </g>
-          </defs>
-          <rect x="0" y="0" width="1200" height="172" fill="url(#tr-sea)"/>
-          <circle cx="1010" cy="96" r="30" class="tr-sun"/>
-          <path class="tr-wave" d="M0 118q30-7 60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0"/>
-          <path class="tr-wave" opacity=".55" d="M-30 146q30-6 60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0"/>
-          <line x1="0" y1="172" x2="1200" y2="172" class="tr-horizon"/>
-          <path class="tr-dune d1" d="M0 250C200 200 380 305 600 258S980 190 1200 250V530H0Z"/>
-          <path class="tr-dune d2" d="M0 340C220 280 420 390 640 330S1000 270 1200 340V530H0Z"/>
-          <path class="tr-dune d3" d="M0 440C260 390 520 480 760 430S1050 390 1200 440V530H0Z"/>
-          <use href="#tr-palm" class="tr-palm" transform="translate(140 262) scale(1.05)"/>
-          <use href="#tr-palm" class="tr-palm" transform="translate(575 214) scale(.7)"/>
-          <g id="trail-regions"></g>
-          <path id="trail-base" class="tr-base" d="M70 470C170 470 190 330 300 330S420 440 520 400S640 250 760 270S880 400 980 350S1080 210 1130 205"/>
-          <path id="trail-line" class="tr-line" d="M70 470C170 470 190 330 300 330S420 440 520 400S640 250 760 270S880 400 980 350S1080 210 1130 205"/>
-          <g id="trail-stops"></g>
-          <g id="trail-walker" class="tr-walker"><circle r="16" class="halo"/><circle r="7" class="dot"/></g>
-        </svg>
-      </div>
-      <figcaption id="trail-cap">Nine stops. Tap one to jump to it.</figcaption>
-      <p class="swipe small">Swipe the map sideways to follow the path.</p>
-    </figure>
-  </div>
-</section>
-
-<!-- ===================== 02 WHAT ===================== -->
+<!-- ===================== 01 WHAT ===================== -->
 <section class="sec" id="what">
   <div class="wrap">
     <div class="narrow">
-      <p class="eyebrow">02 · What it is</p>
-      <h2>A colleague who can touch the files.</h2>
-      <p class="lead">A chatbot answers. Claude Code acts. Point it at a folder and it can read every file in it, write new ones, run commands, search the web, and use git, all from a conversation. You stay in charge of what it may touch.</p>
+      <p class="eyebrow">01 · What it is</p>
+      <h2>A colleague you can hand real work to.</h2>
+      <p class="lead">Most AI tools answer questions. Claude Code takes on the job. Give it a folder and a goal, and it reads what is there, makes a plan, writes and edits the files, runs the tests, fixes what breaks, and comes back with a summary. The kind of task you would hand to a capable colleague, done in a conversation, with you deciding what ships.</p>
     </div>
     <div class="trio">
-      <div class="pane rv" data-tilt><span class="tag">Chat</span><h3>You carry the context.</h3><p>You paste things in and copy answers out. Wonderful for thinking, slow for doing, and it forgets your project the moment you close the tab.</p></div>
-      <div class="pane hi rv d1" data-tilt><span class="tag">Claude Code</span><h3>It works where the files are.</h3><p>It reads the project, makes the change, runs the tests, and shows you the diff. Ambiguity gets a question, risk gets a permission prompt.</p></div>
-      <div class="pane rv d2" data-tilt><span class="tag">You</span><h3>Judgment stays with you.</h3><p>You set the goal, answer its questions, approve anything that touches the outside world, and read what changed before it ships.</p></div>
+      <div class="pane rv" data-tilt><span class="tag">A chatbot</span><h3>Hands the work back to you.</h3><p>It answers, you paste the answer somewhere, you fix what did not fit, you come back with the next question. Every step still runs through your hands.</p></div>
+      <div class="pane hi rv d1" data-tilt><span class="tag">Claude Code</span><h3>Carries the work end to end.</h3><p>It reads the project, plans, writes the files, runs the tests, fixes the failures, and reports. Jobs with twenty steps, with a question when something is unclear and a permission prompt before anything risky.</p></div>
+      <div class="pane rv d2" data-tilt><span class="tag">You</span><h3>Decide what ships.</h3><p>You set the goal, answer its questions, approve anything that touches the outside world, and read what changed. Judgment stays with you.</p></div>
     </div>
     <div class="take rv">
-      <p>Our view, after building Edge's own internal tools this way: the skill that matters most is describing an outcome clearly and checking the result, which most people who have never written code already have. <i>Syntax was the wall. The wall is gone; the judgment still counts.</i></p>
+      <p>Our view, after building Edge's own internal tools this way: the unlock is delegation. Once you can describe an outcome clearly and check the result, you can hand over work you would never have attempted yourself, and most people who have never written code already have those two skills. <i>Syntax was the wall. The wall is gone; the judgment still counts.</i></p>
     </div>
   </div>
 </section>
 
-<!-- ===================== 03 LOOP ===================== -->
+<!-- ===================== 02 LOOP ===================== -->
 <section class="pin-section" id="loop">
   <div class="pin-track" id="loop-track">
     <div class="pin">
@@ -544,7 +470,7 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
         <div class="loop-grid">
           <div>
             <div class="loop-head">
-              <p class="eyebrow">03 · The loop</p>
+              <p class="eyebrow">02 · The loop</p>
               <h2>Every session is the same loop.</h2>
               <p>Once you can see it, everything else is detail. Scroll to walk through it.</p>
             </div>
@@ -616,11 +542,11 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
   </div>
 </section>
 
-<!-- ===================== 04 SETUP ===================== -->
+<!-- ===================== 03 SETUP ===================== -->
 <section class="sec" id="setup">
   <div class="wrap two">
     <div class="sticky-col">
-      <p class="eyebrow">04 · Set up</p>
+      <p class="eyebrow">03 · Set up</p>
       <h2>Ten minutes to a working setup.</h2>
       <p class="lead">Two doors into the same tool. The Desktop app runs Claude Code with buttons, panes, and a visual diff for every change; the terminal is where it started and runs anywhere. Pick one, and switch later if you like. Everything else on this page applies to both.</p>
       <div class="where rv" style="grid-template-columns:1fr 1fr">
@@ -654,7 +580,7 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
           </li>
           <li class="rv">
             <h4>Type your first ask, then give it a memory</h4>
-            <p>Plain English, then Enter. Drag in a screenshot, or type <code>@</code> to mention a file. When Claude changes something, a <code>+12 -1</code> indicator appears; click it to open the diff and comment on any line. After the first task, type <code>/init</code> in the prompt box and Claude drafts a <code>CLAUDE.md</code> for the folder. Section 06 shows what to put in it.</p>
+            <p>Plain English, then Enter. Drag in a screenshot, or type <code>@</code> to mention a file. When Claude changes something, a <code>+12 -1</code> indicator appears; click it to open the diff and comment on any line. After the first task, type <code>/init</code> in the prompt box and Claude drafts a <code>CLAUDE.md</code> for the folder. Section 05 shows what to put in it.</p>
           </li>
         </ol>
       </div>
@@ -691,7 +617,7 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
         <li class="rv">
           <h4>Give it a memory</h4>
           <div class="cmd"><code>/init</code><button class="copy" data-copy="/init">Copy</button></div>
-          <p>Claude reads the folder and drafts a <code>CLAUDE.md</code>, the file where it keeps notes about your project. It is a plain text file you can edit any time. Section 06 shows what to put in it.</p>
+          <p>Claude reads the folder and drafts a <code>CLAUDE.md</code>, the file where it keeps notes about your project. It is a plain text file you can edit any time. Section 05 shows what to put in it.</p>
         </li>
       </ol>
 
@@ -711,17 +637,17 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
       </div>
 
       <div class="notecard rv">
-        <p><strong>What it costs.</strong> Subscriptions include Claude Code within each plan's usage limits, and <code>/usage</code> shows how much of the window you have used. Console accounts pay per token and see a running dollar figure in the same place. Long sessions cost more than short ones, which is one reason for the <code>/clear</code> habit in section 07.</p>
+        <p><strong>What it costs.</strong> Subscriptions include Claude Code within each plan's usage limits, and <code>/usage</code> shows how much of the window you have used. Console accounts pay per token and see a running dollar figure in the same place. Long sessions cost more than short ones, which is one reason for the <code>/clear</code> habit in section 06.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== 05 SESSION ===================== -->
+<!-- ===================== 04 SESSION ===================== -->
 <section class="sec sim" id="session">
   <div class="wrap">
     <div class="narrow">
-      <p class="eyebrow">05 · First session</p>
+      <p class="eyebrow">04 · First session</p>
       <h2>Run a first session, safely, right here.</h2>
       <p class="lead">Pick a track and press run. The session below is scripted to show what a real one feels like, including the moment Claude stops to ask. When it does, you decide. Then go and do the same thing for real in your own terminal.</p>
     </div>
@@ -756,11 +682,11 @@ footer .fine{margin-top:28px;font-family:var(--mono);font-size:12px;letter-spaci
   </div>
 </section>
 
-<!-- ===================== 06 CLAUDE.md ===================== -->
+<!-- ===================== 05 CLAUDE.md ===================== -->
 <section class="sec" id="claudemd">
   <div class="wrap">
     <div class="narrow">
-      <p class="eyebrow">06 · Teach it your world</p>
+      <p class="eyebrow">05 · Teach it your world</p>
       <h2>Claude knows everything about software and nothing about your project.</h2>
       <p class="lead"><code>CLAUDE.md</code> fixes that. It is a plain text file in your folder that Claude reads at the start of every session: what the project is, how you like to work, what to never do. Fill in the blanks, copy the file, and watch every answer get better.</p>
     </div>
@@ -801,11 +727,11 @@ Delete anything in notes/</textarea></div>
   </div>
 </section>
 
-<!-- ===================== 07 HABITS ===================== -->
+<!-- ===================== 06 HABITS ===================== -->
 <section class="sec" id="habits">
   <div class="wrap">
     <div class="narrow">
-      <p class="eyebrow">07 · Habits</p>
+      <p class="eyebrow">06 · Habits</p>
       <h2>Eight habits that separate frustrating from fluent.</h2>
       <p class="lead">Each card has a vague prompt on the back and a better one under it. Tap or hover to flip.</p>
     </div>
@@ -859,11 +785,11 @@ Delete anything in notes/</textarea></div>
   </div>
 </section>
 
-<!-- ===================== 08 WEEKS ===================== -->
+<!-- ===================== 07 WEEKS ===================== -->
 <section class="sec" id="weeks">
   <div class="wrap">
     <div class="narrow">
-      <p class="eyebrow">08 · Three weeks in Goa</p>
+      <p class="eyebrow">07 · Three weeks in Goa</p>
       <h2>One workshop a week, and the days in between are the point.</h2>
       <p class="lead">Each week's workshop opens a track. Build clinics between them turn what you saw into something you made. Bring a project; the format works best when the thing you build is yours.</p>
     </div>
@@ -910,11 +836,11 @@ Delete anything in notes/</textarea></div>
   </div>
 </section>
 
-<!-- ===================== 09 CHECKLIST ===================== -->
+<!-- ===================== 08 CHECKLIST ===================== -->
 <section class="sec" id="checklist">
   <div class="wrap two">
     <div class="sticky-col">
-      <p class="eyebrow">09 · Your checklist</p>
+      <p class="eyebrow">08 · Your checklist</p>
       <h2>Seven boxes, in order.</h2>
       <p class="lead">This page remembers what you have ticked, on this device. Come back to it during the village.</p>
       <p class="check-status" id="check-status">0 of 7 done</p>
@@ -1265,59 +1191,6 @@ if(!RM && matchMedia('(hover:hover)').matches){
   function pick(id,store){ btns.forEach(function(b){ var on=b.getAttribute('data-door')===id; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); }); panels.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-door')===id); }); if(store){ try{ localStorage.setItem(KEY,id); }catch(e){} } }
   if(saved && btns.some(function(b){return b.getAttribute('data-door')===saved})) pick(saved,false);
   btns.forEach(function(b){ b.addEventListener('click', function(){ pick(b.getAttribute('data-door'),true); }); });
-})();
-
-/* ---------- the path: trail map ---------- */
-(function trail(){
-  var fig=$('#trail'), svg=$('#trail-svg'), line=$('#trail-line'), stopsG=$('#trail-stops'), regions=$('#trail-regions'), walker=$('#trail-walker'), cap=$('#trail-cap');
-  if(!svg || !line || !line.getTotalLength) return;
-  var NS='http://www.w3.org/2000/svg';
-  function mk(tag,attrs,text){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); if(text!==undefined) e.textContent=text; return e; }
-  var STOPS=[
-    {n:'01',l:'See the loop',s:'What Claude Code is, and the five-stage loop every session follows.',h:'#what',goa:false,pos:'right'},
-    {n:'02',l:'Set up',s:'Desktop app or terminal. Ten minutes either way.',h:'#setup',goa:false,pos:'above'},
-    {n:'03',l:'First session',s:'Run the scripted session here, then a real one in your own folder.',h:'#session',goa:false,pos:'above'},
-    {n:'04',l:'Teach it your world',s:'Write a CLAUDE.md so every answer fits your project.',h:'#claudemd',goa:false,pos:'below'},
-    {n:'05',l:'Build the habits',s:'Eight habits and three rules for the real machine.',h:'#habits',goa:false,pos:'upleft'},
-    {n:'06',l:'Week 1 · First tool',s:'Beginner workshop, then build clinics until something of yours works.',h:'#weeks',goa:true,pos:'above'},
-    {n:'07',l:'Week 2 · Real project',s:'Ship a feature with tests, reuse it as a Skill, connect a tool.',h:'#weeks',goa:true,pos:'below'},
-    {n:'08',l:'Week 3 · Agents',s:'Subagents, schedules, pull requests. Then the hackathon.',h:'#weeks',goa:true,pos:'below'},
-    {n:'09',l:'Showcase',s:'Show the village what you made.',h:'#weeks',goa:true,pos:'left'}
-  ];
-  var FR=[0.03,0.15,0.27,0.39,0.51,0.64,0.76,0.88,0.985];
-  var L=line.getTotalLength(); line.style.strokeDasharray=L; line.style.strokeDashoffset=L;
-  var defCap=cap.textContent;
-  // where the page ends and Goa begins
-  var bp=line.getPointAtLength(L*0.575);
-  regions.appendChild(mk('line',{x1:bp.x,y1:186,x2:bp.x,y2:498,class:'divider'}));
-  regions.appendChild(mk('text',{x:(70+bp.x)/2,y:512,class:'region','text-anchor':'middle'},'THIS PAGE · ONE AFTERNOON'));
-  regions.appendChild(mk('text',{x:(bp.x+1140)/2,y:512,class:'region','text-anchor':'middle'},'IN GOA · OCT 11 TO NOV 1'));
-  var els=STOPS.map(function(st,i){
-    var pt=line.getPointAtLength(L*FR[i]);
-    var a=mk('a',{href:st.h,class:'stop'+(st.goa?' goa':''),tabindex:'0'});
-    var lx=pt.x, ly=pt.y, anchor='middle', lead=null;
-    if(st.pos==='above'){ ly=pt.y-46; lead=[pt.y-17, ly+12]; }
-    else if(st.pos==='below'){ ly=pt.y+56; lead=[pt.y+17, ly-16]; }
-    else if(st.pos==='upleft'){ ly=pt.y-30; lx=pt.x-22; anchor='end'; }
-    else if(st.pos==='right'){ ly=pt.y+5; lx=pt.x+24; anchor='start'; }
-    else if(st.pos==='left'){ ly=pt.y+5; lx=pt.x-24; anchor='end'; }
-    if(lead) a.appendChild(mk('line',{x1:pt.x,y1:lead[0],x2:pt.x,y2:lead[1],class:'lead'}));
-    a.appendChild(mk('circle',{cx:pt.x,cy:pt.y,r:15,class:'ring'}));
-    a.appendChild(mk('text',{x:pt.x,y:pt.y+0.5,class:'num'},st.n));
-    a.appendChild(mk('text',{x:lx,y:ly,class:'lbl','text-anchor':anchor},st.l));
-    function show(){ cap.textContent=st.n+' · '+st.l+'. '+st.s; }
-    function hide(){ cap.textContent=defCap; }
-    a.addEventListener('mouseenter',show); a.addEventListener('focus',show); a.addEventListener('mouseleave',hide); a.addEventListener('blur',hide);
-    stopsG.appendChild(a); return a;
-  });
-  function upd(){
-    var r=fig.getBoundingClientRect(), vh=innerHeight;
-    var p=RM?1:Math.min(1,Math.max(0,(vh*0.88-r.top)/(r.height+vh*0.4)));
-    line.style.strokeDashoffset=L*(1-p);
-    var pt=line.getPointAtLength(L*p); walker.setAttribute('transform','translate('+pt.x.toFixed(1)+' '+pt.y.toFixed(1)+')');
-    els.forEach(function(a,i){ a.classList.toggle('on', p>=FR[i]-0.005); });
-  }
-  addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); upd();
 })();
 
 /* ---------- CLAUDE.md builder ---------- */
